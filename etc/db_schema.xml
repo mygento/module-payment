@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="mygento_payment_keys" resource="default" engine="innodb" comment="mygento_payment_keys Table">
+        <column xsi:type="int" name="id" nullable="false" identity="true" unsigned="true" padding="10" comment="Key ID"/>
+        <column xsi:type="varchar" name="code" nullable="false" length="255" comment="Module CodeName"/>
+        <column xsi:type="int" name="order_id" nullable="false" identity="false" unsigned="true" padding="10" comment="Order ID"/>
+        <column xsi:type="varchar" name="hkey" nullable="false" length="255" comment="Hashed Key"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="FK_PAY_KEY_ORD_SAL_ORD_ENT_ID" table="mygento_payment_keys" column="order_id" referenceTable="sales_order" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <index referenceId="IX_ORD_ID" indexType="btree">
+            <column name="order_id"/>
+        </index>
+    </table>
+</schema>

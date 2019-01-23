@@ -1,0 +1,31 @@
+Mygento:
+  Payment:
+    Keys:
+      gui: false
+      columns:
+        id:
+          type: int
+          pk: true
+          identity: true
+          unsigned: true
+          nullable: false
+          comment: 'Key ID'
+        code:
+          type: varchar
+          nullable: false
+          comment: 'Module CodeName'
+        order_id:
+          type: int
+          unsigned: true
+          nullable: false
+          comment: 'Order ID'
+        hkey:
+          type: varchar
+          nullable: false
+          comment: 'Hashed Key'
+      fk:
+        FK_PAY_KEY_ORD_SAL_ORD_ENT_ID:
+          column: 'order_id'
+          referenceTable: 'sales_order'
+          referenceColumn: 'entity_id'
+          indexName: 'IX_ORD_ID'
