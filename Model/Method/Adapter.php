@@ -15,7 +15,7 @@ namespace Mygento\Payment\Model\Method;
 class Adapter extends \Magento\Payment\Model\Method\Adapter
 {
     /**
-     * @var \Magento\Payment\Gateway\Command\CommandPoolInterface
+     * @var \Magento\Payment\Gateway\Command\CommandPoolInterface|null
      */
     protected $commandPool;
 
@@ -38,9 +38,9 @@ class Adapter extends \Magento\Payment\Model\Method\Adapter
      * @param \Psr\Log\LoggerInterface|null $logger
      */
     public function __construct(
-        ManagerInterface $eventManager,
-        ValueHandlerPoolInterface $valueHandlerPool,
-        PaymentDataObjectFactory $paymentDataObjectFactory,
+        \Magento\Framework\Event\ManagerInterface $eventManager,
+        \Magento\Payment\Gateway\Config\ValueHandlerPoolInterface $valueHandlerPool,
+        \Magento\Payment\Gateway\Data\PaymentDataObjectFactory $paymentDataObjectFactory,
         $code,
         $formBlockType,
         $infoBlockType,
@@ -72,8 +72,13 @@ class Adapter extends \Magento\Payment\Model\Method\Adapter
      */
     public function executeCustomCommand($commandCode, $arguments = [])
     {
-        if (isset($arguments['payment']) && $arguments['payment'] instanceof InfoInterface) {
-            $payment = $arguments['payment'];
+        if ($this->commandPool === null) {
+            return;
+        }
+
+        if (isset($arguments['payment'])
+            && $arguments['payment'] instanceof \Magento\Payment\Model\InfoInterface
+          ) {
             $arguments['payment'] = $this->paymentDataObjectFactory->create($arguments['payment']);
         }
         $command = $this->commandPool->get($commandCode);

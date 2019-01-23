@@ -22,14 +22,21 @@ class Data extends \Mygento\Base\Helper\Data
     private $keyManager;
 
     /**
+     * @var \Mygento\Payment\Model\RegistrationManager
+     */
+    private $regManager;
+
+    /**
      *
      * @param \Mygento\Payment\Model\KeyManager $keyManager
+     * @param \Mygento\Payment\Model\RegistrationManager $regManager
      * @param \Mygento\Base\Model\LogManager $logManager
      * @param \Magento\Framework\Encryption\Encryptor $encryptor
      * @param \Magento\Framework\App\Helper\Context $context
      */
     public function __construct(
         \Mygento\Payment\Model\KeyManager $keyManager,
+        \Mygento\Payment\Model\RegistrationManager $regManager,
         \Mygento\Base\Model\LogManager $logManager,
         \Magento\Framework\Encryption\Encryptor $encryptor,
         \Magento\Framework\App\Helper\Context $context
@@ -40,6 +47,7 @@ class Data extends \Mygento\Base\Helper\Data
             $context
         );
         $this->keyManager = $keyManager;
+        $this->regManager = $regManager;
     }
 
     /**
@@ -59,6 +67,38 @@ class Data extends \Mygento\Base\Helper\Data
     public function decodeLink($link)
     {
         return $this->keyManager->decodeLink($this->code, $link);
+    }
+
+    /**
+     * @param string $code
+     * @param int|string $orderId
+     * @return \Mygento\Payment\Api\Data\RegistrationInterface
+     */
+    public function getRegistrationByOrderID($orderId)
+    {
+        return $this->regManager->getRegistrationByOrderID($this->code, $orderId);
+    }
+
+    /**
+     * @param string $code
+     * @param int|string $paymentId
+     * @return \Mygento\Payment\Api\Data\RegistrationInterface
+     */
+    public function getRegistrationByPaymentID($paymentId)
+    {
+        return $this->regManager->getRegistrationByPaymentID($this->code, $paymentId);
+    }
+
+    /**
+     * @param string $code
+     * @param int|string $orderId
+     * @param int|string $paymentId
+     * @param string $redirectUrl
+     * @return \Mygento\Payment\Api\Data\RegistrationInterface
+     */
+    public function createRegistration($orderId, $paymentId, string $redirectUrl)
+    {
+        return $this->regManager->createRegistration($this->code, $orderId, $paymentId, $redirectUrl);
     }
 
     /**

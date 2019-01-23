@@ -28,4 +28,53 @@ Mygento:
           column: 'order_id'
           referenceTable: 'sales_order'
           referenceColumn: 'entity_id'
-          indexName: 'IX_ORD_ID'
+          indexName: 'IX_KEY_ORD_ID'
+    Registration:
+      gui: false
+      columns:
+        id:
+          type: int
+          pk: true
+          identity: true
+          unsigned: true
+          nullable: false
+          comment: 'Key ID'
+        code:
+          type: varchar
+          nullable: false
+          comment: 'Module CodeName'
+        order_id:
+          type: int
+          unsigned: true
+          nullable: false
+          comment: 'Order ID'
+        payment_id:
+          type: varchar
+          nullable: false
+          comment: 'Payment ID'
+        payment_url:
+          type: varchar
+          nullable: false
+          comment: 'Payment Url'
+        try:
+          type: int
+          unsigned: true
+          nullable: false
+          default: 0
+          comment: 'Try'
+        payment_type:
+          type: varchar
+          nullable: false
+          comment: 'Payment Type'
+        created_at:
+          type: timestamp
+          nullable: false
+          default: CURRENT_TIMESTAMP
+          on_update: false
+          comment: 'Created At'
+      fk:
+        FK_PAY_REG_ORD_SAL_ORD_ENT_ID:
+          column: 'order_id'
+          referenceTable: 'sales_order'
+          referenceColumn: 'entity_id'
+          indexName: 'IX_REG_ORD_ID'

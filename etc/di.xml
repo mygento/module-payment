@@ -1,12 +1,16 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Mygento\Payment\Api\KeysRepositoryInterface" type="Mygento\Payment\Model\KeysRepository"/>
+    <preference for="Mygento\Payment\Api\RegistrationRepositoryInterface" type="Mygento\Payment\Model\RegistrationRepository"/>
     <preference for="Mygento\Payment\Api\Data\KeysInterface" type="Mygento\Payment\Model\Keys"/>
+    <preference for="Mygento\Payment\Api\Data\RegistrationInterface" type="Mygento\Payment\Model\Registration"/>
     <preference for="Mygento\Payment\Api\Data\KeysSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+    <preference for="Mygento\Payment\Api\Data\RegistrationSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
     <type name="Magento\Framework\Model\Entity\RepositoryFactory">
         <arguments>
             <argument name="entities" xsi:type="array">
                 <item name="Mygento\Payment\Api\Data\KeysInterface" xsi:type="string">Mygento\Payment\Api\KeysRepositoryInterface</item>
+                <item name="Mygento\Payment\Api\Data\RegistrationInterface" xsi:type="string">Mygento\Payment\Api\RegistrationRepositoryInterface</item>
             </argument>
         </arguments>
     </type>

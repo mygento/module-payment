@@ -24,7 +24,6 @@ interface KeyManagerInterface
      */
     public function decodeLink(string $code, string $link);
 
-
     /**
      * @param int|string $orderId
      * @return string
