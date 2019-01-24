@@ -8,6 +8,9 @@
 
 namespace Mygento\Payment\Gateway\Http;
 
+use Magento\Payment\Gateway\Http\TransferBuilder;
+use Magento\Payment\Gateway\Http\TransferInterface;
+
 class TransferFactory implements \Magento\Payment\Gateway\Http\TransferFactoryInterface
 {
     /**
@@ -16,10 +19,10 @@ class TransferFactory implements \Magento\Payment\Gateway\Http\TransferFactoryIn
     private $transferBuilder;
 
     /**
-     * @param \Magento\Payment\Gateway\Http\TransferBuilder $transferBuilder
+     * @param TransferBuilder $transferBuilder
      */
     public function __construct(
-        \Magento\Payment\Gateway\Http\TransferBuilder $transferBuilder
+        TransferBuilder $transferBuilder
     ) {
         $this->transferBuilder = $transferBuilder;
     }

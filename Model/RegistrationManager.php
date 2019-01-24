@@ -8,6 +8,8 @@
 
 namespace Mygento\Payment\Model;
 
+use Mygento\Payment\Model\ResourceModel\Registration\Collection;
+
 class RegistrationManager implements \Mygento\Payment\Api\Data\RegistrationManagerInterface
 {
     /**
@@ -48,17 +50,22 @@ class RegistrationManager implements \Mygento\Payment\Api\Data\RegistrationManag
      */
     public function getRegistrationByOrderID(string $code, $orderId)
     {
+        /** @var Collection $collection */
         $collection = $this->regCollection->create();
-        $collection->addFieldToFilter('order_id', $orderId);
-        $collection->addFieldToFilter('code', $code);
+        $collection
+            ->addFieldToFilter('order_id', $orderId)
+            ->addFieldToFilter('code', $code)
+            ->setPageSize(1);
         if ($collection->getSize() > 0) {
             return $collection->getFirstItem();
         }
+
+        /** @var Registration $model */
         $model = $this->regModel->create();
-        $model->setData([
-            'code' => $code,
-            'order_id' => $orderId
-        ]);
+        $model
+            ->setCode($code)
+            ->setOrderId($orderId);
+
         return $model;
     }
 
@@ -69,17 +76,22 @@ class RegistrationManager implements \Mygento\Payment\Api\Data\RegistrationManag
      */
     public function getRegistrationByPaymentID(string $code, $paymentId)
     {
+        /** @var Collection $collection */
         $collection = $this->regCollection->create();
-        $collection->addFieldToFilter('payment_id', $paymentId);
-        $collection->addFieldToFilter('code', $code);
+        $collection
+            ->addFieldToFilter('payment_id', $paymentId)
+            ->addFieldToFilter('code', $code)
+            ->setPageSize(1);
         if ($collection->getSize() > 0) {
             return $collection->getFirstItem();
         }
+
+        /** @var Registration $model */
         $model = $this->regModel->create();
-        $model->setData([
-            'code' => $code,
-            'payment_id' => $paymentId
-        ]);
+        $model
+            ->setCode($code)
+            ->setPaymentId($paymentId);
+
         return $model;
     }
 
@@ -87,17 +99,22 @@ class RegistrationManager implements \Mygento\Payment\Api\Data\RegistrationManag
      * @param string $code
      * @param int|string $orderId
      * @param int|string $paymentId
-     * @param string $redirectUrl
+     * @param string $paymentUrl
+     * @param int $try
+     * @throws \Magento\Framework\Exception\LocalizedException
      * @return \Mygento\Payment\Api\Data\RegistrationInterface
      */
-    public function createRegistration(string $code, $orderId, $paymentId, string $redirectUrl)
+    public function createRegistration(string $code, $orderId, $paymentId, string $paymentUrl, $try = 1)
     {
+        /** @var Registration $model */
         $model = $this->regModel->create();
-        $model->setData([
-            'code' => $code,
-            'payment_id' => $paymentId,
-            'order_id' => $order_id,
-        ]);
+        $model
+            ->setCode($code)
+            ->setPaymentId($paymentId)
+            ->setOrderId($orderId)
+            ->setPaymentUrl($paymentUrl)
+            ->setTry($try);
+
         $this->regRepo->save($model);
         return $model;
     }

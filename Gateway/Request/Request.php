@@ -6,9 +6,9 @@
  * @package Mygento_Payment
  */
 
-namespace Mygento\Payment\Gateway\Response;
+namespace Mygento\Payment\Gateway\Request;
 
-class Response implements \Magento\Payment\Gateway\Response\HandlerInterface
+class Request implements \Magento\Payment\Gateway\Request\BuilderInterface
 {
     /** @var \Mygento\Payment\Helper\Data */
     protected $helper;
@@ -23,15 +23,13 @@ class Response implements \Magento\Payment\Gateway\Response\HandlerInterface
     }
 
     /**
-     * Handles transaction id
+     * Builds ENV request
      *
-     * @param array $handlingSubject
-     * @param array $response
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     * @return void
+     * @param array $buildSubject
+     * @return array
      */
-    public function handle(array $handlingSubject, array $response)
+    public function build(array $buildSubject)
     {
-        return null;
+        return [];
     }
 }

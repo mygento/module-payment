@@ -70,7 +70,6 @@ class Data extends \Mygento\Base\Helper\Data
     }
 
     /**
-     * @param string $code
      * @param int|string $orderId
      * @return \Mygento\Payment\Api\Data\RegistrationInterface
      */
@@ -80,7 +79,6 @@ class Data extends \Mygento\Base\Helper\Data
     }
 
     /**
-     * @param string $code
      * @param int|string $paymentId
      * @return \Mygento\Payment\Api\Data\RegistrationInterface
      */
@@ -90,22 +88,23 @@ class Data extends \Mygento\Base\Helper\Data
     }
 
     /**
-     * @param string $code
      * @param int|string $orderId
      * @param int|string $paymentId
      * @param string $redirectUrl
+     * @param int $try
+     * @throws \Magento\Framework\Exception\LocalizedException
      * @return \Mygento\Payment\Api\Data\RegistrationInterface
      */
-    public function createRegistration($orderId, $paymentId, string $redirectUrl)
+    public function createRegistration($orderId, $paymentId, string $redirectUrl, $try = 1)
     {
-        return $this->regManager->createRegistration($this->code, $orderId, $paymentId, $redirectUrl);
+        return $this->regManager->createRegistration($this->code, $orderId, $paymentId, $redirectUrl, $try);
     }
 
     /**
      * @param string $path
      * @return mixed
      */
-    public function getConfig($path)
+    public function getPaymentConfig($path)
     {
         $scope = $this->code === 'payment' ? 'mygento' : 'payment';
         return parent::getConfig($scope . '/' . $this->code . '/' . $path);

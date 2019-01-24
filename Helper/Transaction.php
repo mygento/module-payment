@@ -48,8 +48,8 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
 
     public function proceedAuthorize($order, $transactionId, $amount, $transData = [])
     {
-        $this->helper->debug('proceed authorize: ' . $transactionId . ' ' . $amount);
-        $this->helper->debug($transData);
+        $this->helper->addLog('proceed authorize: ' . $transactionId . ' ' . $amount);
+        $this->helper->addLog($transData);
         $payment = $order->getPayment();
         $payment->setTransactionId($transactionId);
         $payment->setIsTransactionClosed(0);
@@ -70,8 +70,8 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
 
     public function proceedCapture($order, $transactionId, $amount, $transData = [])
     {
-        $this->helper->debug('proceed capture: ' . $transactionId . ' ' . $amount);
-        $this->helper->debug($transData);
+        $this->helper->addLog('proceed capture: ' . $transactionId . ' ' . $amount);
+        $this->helper->addLog($transData);
         $payment = $order->getPayment();
         $payment->setTransactionId($transactionId);
         $payment->setIsTransactionClosed(0);

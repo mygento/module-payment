@@ -48,7 +48,7 @@ class Form extends \Magento\Payment\Block\Form
      */
     public function getPayTypes()
     {
-        return explode(',', $this->helper->getConfig('paytype'));
+        return explode(',', $this->helper->getPaymentConfig('paytype'));
     }
 
     /**
@@ -58,7 +58,7 @@ class Form extends \Magento\Payment\Block\Form
     public function getInstructions()
     {
         if ($this->instructions === null) {
-            $this->instructions = $this->helper->getConfig('instructions');
+            $this->instructions = $this->helper->getPaymentConfig('instructions');
         }
         return $this->instructions;
     }

@@ -14,14 +14,15 @@ class Validator extends \Magento\Payment\Gateway\Validator\AbstractValidator
     protected $helper;
 
     /**
-     * @param ResultInterfaceFactory $resultFactory
+     * @param \Mygento\Payment\Helper\Data $helper
+     * @param \Magento\Payment\Gateway\Validator\ResultInterfaceFactory $resultFactory
      */
     public function __construct(
         \Mygento\Payment\Helper\Data $helper,
         \Magento\Payment\Gateway\Validator\ResultInterfaceFactory $resultFactory
     ) {
         parent::__construct($resultFactory);
-        $this->_helper = $helper;
+        $this->helper = $helper;
     }
 
     /**
