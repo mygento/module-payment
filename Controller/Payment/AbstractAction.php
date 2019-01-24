@@ -32,14 +32,14 @@ abstract class AbstractAction extends \Magento\Framework\App\Action\Action
     protected $resultForwardFactory;
 
     public function __construct(
-        ActionContext $actionContext
+        ActionContext $context
     ) {
-        parent::__construct($actionContext->context);
+        parent::__construct($context->context);
 
-        $this->helper = $actionContext->helper;
-        $this->transHelper = $actionContext->transHelper;
-        $this->orderFactory = $actionContext->orderFactory;
-        $this->checkoutSession = $actionContext->checkoutSession;
-        $this->resultForwardFactory = $actionContext->resultForwardFactory;
+        $this->helper = $context->helper;
+        $this->transHelper = $context->transHelper;
+        $this->orderFactory = $context->orderFactory;
+        $this->checkoutSession = $context->checkoutSession;
+        $this->resultForwardFactory = $context->resultForwardFactory;
     }
 }
