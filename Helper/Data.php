@@ -50,6 +50,11 @@ class Data extends \Mygento\Base\Helper\Data
         $this->regManager = $regManager;
     }
 
+    public function isActive()
+    {
+        return $this->getPaymentConfig('active');
+    }
+
     /**
      *
      * @param int|string $orderId
@@ -102,12 +107,16 @@ class Data extends \Mygento\Base\Helper\Data
 
     /**
      * @param string $path
+     * @param null $storeId
      * @return mixed
      */
-    public function getPaymentConfig($path)
+    public function getPaymentConfig($path, $storeId = null)
     {
         $scope = $this->code === 'payment' ? 'mygento' : 'payment';
-        return parent::getConfig($scope . '/' . $this->code . '/' . $path);
+        return parent::getConfig(
+            $scope . '/' . $this->code . '/' . $path,
+            $storeId
+        );
     }
 
     protected function getDebugConfigPath()
