@@ -14,4 +14,11 @@
             </argument>
         </arguments>
     </type>
+
+    <type name="Mygento\Payment\Model\KeyManager">
+        <arguments>
+            <argument name="urlBuilder" xsi:type="object">Magento\Framework\Url</argument>
+        </arguments>
+    </type>
+
 </config>
