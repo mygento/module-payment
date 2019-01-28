@@ -59,6 +59,7 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
         $order->save();
 
         if (!empty($transData)) {
+            $transData = $this->prepareTransData($transData);
             $this->updateTransactionData(
                 $transactionId,
                 $payment->getId(),
@@ -80,6 +81,7 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
         $order->save();
 
         if (!empty($transData)) {
+            $transData = $this->prepareTransData($transData);
             $this->updateTransactionData(
                 $transactionId,
                 $payment->getId(),
@@ -260,6 +262,24 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
             $transactionId,
             $paymentId,
             $orderId
+        );
+    }
+
+    private function prepareTransData($transData)
+    {
+        if (!is_array($transData)) {
+            return $transData;
+        }
+
+        return array_map(
+            function ($item) {
+                if (!is_array($item)) {
+                    return $item;
+                }
+
+                return json_encode($item);
+            },
+            $transData
         );
     }
 }
