@@ -63,6 +63,7 @@ class KeyManager implements \Mygento\Payment\Api\Data\KeyManagerInterface
             $item = $collection->getFirstItem();
             return $this->urlBuilder->getUrl($code . '/payment/redirect/', [
                 '_secure' => true,
+                '_nosid' => true,
                 'order' => $item->getHkey()
             ]);
         }

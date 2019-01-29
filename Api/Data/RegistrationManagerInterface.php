@@ -28,8 +28,9 @@ interface RegistrationManagerInterface
      * @param string $code
      * @param int|string $orderId
      * @param int|string $paymentId
-     * @param string $redirectUrl
+     * @param string $paymentUrl
+     * @param int $try
      * @return \Mygento\Payment\Api\Data\RegistrationInterface
      */
-    public function createRegistration(string $code, $orderId, $paymentId, string $redirectUrl);
+    public function createRegistration(string $code, $orderId, $paymentId, string $paymentUrl, $try = 1);
 }

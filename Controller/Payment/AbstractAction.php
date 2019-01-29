@@ -10,36 +10,36 @@ namespace Mygento\Payment\Controller\Payment;
 
 abstract class AbstractAction extends \Magento\Framework\App\Action\Action
 {
-    /** @var \Mygento\Payment\Helper\Data */
+    /**
+     * @var \Mygento\Payment\Helper\Data
+     */
     protected $helper;
-
     /**
      * @var \Mygento\Payment\Helper\Transaction
      */
     protected $transHelper;
-
-    /** @var \Magento\Sales\Model\OrderFactory */
+    /**
+     * @var \Magento\Sales\Model\OrderFactory
+     */
     protected $orderFactory;
-
-    /** @var \Magento\Checkout\Model\Session */
+    /**
+     * @var \Magento\Checkout\Model\Session
+     */
     protected $checkoutSession;
-
-    /** @var \Magento\Framework\View\Result\PageFactory */
-    protected $resultPageFactory;
+    /**
+     * @var \Magento\Framework\Controller\Result\ForwardFactory
+     */
+    protected $resultForwardFactory;
 
     public function __construct(
-        \Mygento\Payment\Helper\Data $helper,
-        \Mygento\Payment\Helper\Transaction $transHelper,
-        \Magento\Sales\Model\OrderFactory $orderFactory,
-        \Magento\Checkout\Model\Session $checkoutSession,
-        \Magento\Framework\View\Result\LayoutFactory $resultLayoutFactory,
-        \Magento\Framework\App\Action\Context $context
+        ActionContext $context
     ) {
-        parent::__construct($context);
-        $this->helper = $helper;
-        $this->transHelper = $transHelper;
-        $this->orderFactory = $orderFactory;
-        $this->checkoutSession = $checkoutSession;
-        $this->resultLayoutFactory = $resultLayoutFactory;
+        parent::__construct($context->context);
+
+        $this->helper = $context->helper;
+        $this->transHelper = $context->transHelper;
+        $this->orderFactory = $context->orderFactory;
+        $this->checkoutSession = $context->checkoutSession;
+        $this->resultForwardFactory = $context->resultForwardFactory;
     }
 }

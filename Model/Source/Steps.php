@@ -10,6 +10,9 @@ namespace Mygento\Payment\Model\Source;
 
 class Steps implements \Magento\Framework\Option\ArrayInterface
 {
+    const ONE_STEP = 1;
+    const TWO_STEP = 2;
+
     /**
      * One/Two factor payment
      *
@@ -18,8 +21,8 @@ class Steps implements \Magento\Framework\Option\ArrayInterface
     public function toOptionArray()
     {
         return [
-            ['value' => 1, 'label' => __('One-step')],
-            ['value' => 2, 'label' => __('Two-step')]
+            ['value' => self::ONE_STEP, 'label' => __('One-step')],
+            ['value' => self::TWO_STEP, 'label' => __('Two-step')]
         ];
     }
 }

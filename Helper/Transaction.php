@@ -48,8 +48,7 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
 
     public function proceedAuthorize($order, $transactionId, $amount, $transData = [])
     {
-        $this->helper->debug('proceed authorize: ' . $transactionId . ' ' . $amount);
-        $this->helper->debug($transData);
+        $this->helper->debug('proceed authorize: ' . $transactionId . ' ' . $amount, $transData);
         $payment = $order->getPayment();
         $payment->setTransactionId($transactionId);
         $payment->setIsTransactionClosed(0);
@@ -59,6 +58,7 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
         $order->save();
 
         if (!empty($transData)) {
+            $transData = $this->prepareTransData($transData);
             $this->updateTransactionData(
                 $transactionId,
                 $payment->getId(),
@@ -70,8 +70,7 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
 
     public function proceedCapture($order, $transactionId, $amount, $transData = [])
     {
-        $this->helper->debug('proceed capture: ' . $transactionId . ' ' . $amount);
-        $this->helper->debug($transData);
+        $this->helper->debug('proceed capture: ' . $transactionId . ' ' . $amount, $transData);
         $payment = $order->getPayment();
         $payment->setTransactionId($transactionId);
         $payment->setIsTransactionClosed(0);
@@ -80,6 +79,7 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
         $order->save();
 
         if (!empty($transData)) {
+            $transData = $this->prepareTransData($transData);
             $this->updateTransactionData(
                 $transactionId,
                 $payment->getId(),
@@ -260,6 +260,24 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
             $transactionId,
             $paymentId,
             $orderId
+        );
+    }
+
+    private function prepareTransData($transData)
+    {
+        if (!is_array($transData)) {
+            return $transData;
+        }
+
+        return array_map(
+            function ($item) {
+                if (!is_array($item)) {
+                    return $item;
+                }
+
+                return json_encode($item);
+            },
+            $transData
         );
     }
 }
