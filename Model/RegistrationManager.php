@@ -28,7 +28,6 @@ class RegistrationManager implements \Mygento\Payment\Api\Data\RegistrationManag
     private $regModel;
 
     /**
-     *
      * @param \Mygento\Payment\Api\RegistrationRepositoryInterface $regRepo
      * @param \Mygento\Payment\Model\ResourceModel\Registration\CollectionFactory $regCollection
      * @param \Mygento\Payment\Api\Data\RegistrationInterfaceFactory $regModel
@@ -116,6 +115,7 @@ class RegistrationManager implements \Mygento\Payment\Api\Data\RegistrationManag
             ->setTry($try);
 
         $this->regRepo->save($model);
+
         return $model;
     }
 }

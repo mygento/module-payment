@@ -114,28 +114,6 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
         $order->save();
     }
 
-    protected function updateTransactionData($transactionId, $paymentId, $orderId, $transData)
-    {
-        $this->helper->debug('seaching for transaction: ' . $transactionId
-            . ' ' . $paymentId . ' ' . $orderId);
-        $transaction = $this->transactionRepo->getByTransactionId(
-            $transactionId,
-            $paymentId,
-            $orderId
-        );
-
-        if (!$transaction) {
-            $this->helper->notice('not found payment transaction');
-            return;
-        }
-        $this->helper->debug('found transaction with id: ' . $transaction->getId());
-        $transaction->setAdditionalInformation(
-            \Magento\Sales\Model\Order\Payment\Transaction::RAW_DETAILS,
-            $transData
-        );
-        $transaction->save();
-    }
-
     public function proceedReceipt($order, $transactionId, $parentTransactionId, $transData)
     {
         $this->helper->debug('proceed receipt: ' . $transactionId);
@@ -147,6 +125,7 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
             $order->getId()
         )) {
             $this->helper->notice('transaction %1 already exists', $transactionId);
+
             return;
         }
 
@@ -183,6 +162,7 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
             $order->getId()
         )) {
             $this->helper->notice('Transaction %1 already exists', $transactionId);
+
             return;
         }
 
@@ -208,18 +188,42 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
         $order->save();
     }
 
+    protected function updateTransactionData($transactionId, $paymentId, $orderId, $transData)
+    {
+        $this->helper->debug('seaching for transaction: ' . $transactionId
+            . ' ' . $paymentId . ' ' . $orderId);
+        $transaction = $this->transactionRepo->getByTransactionId(
+            $transactionId,
+            $paymentId,
+            $orderId
+        );
+
+        if (!$transaction) {
+            $this->helper->notice('not found payment transaction');
+
+            return;
+        }
+        $this->helper->debug('found transaction with id: ' . $transaction->getId());
+        $transaction->setAdditionalInformation(
+            \Magento\Sales\Model\Order\Payment\Transaction::RAW_DETAILS,
+            $transData
+        );
+        $transaction->save();
+    }
+
     /**
      * Return invoice model for transaction
      *
      * @param string $transactionId
      * @param mixed $order
-     * @return \Magento\Sales\Model\Order\Invoice|false
+     * @return false|\Magento\Sales\Model\Order\Invoice
      */
     protected function getInvoiceForTransactionId($order, $transactionId)
     {
         foreach ($order->getInvoiceCollection() as $invoice) {
             if ($invoice->getTransactionId() == $transactionId) {
                 $invoice->load($invoice->getId());
+
                 return $invoice;
             }
         }
@@ -232,13 +236,14 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
      *
      * @param string $transactionId
      * @param mixed $order
-     * @return \Magento\Sales\Model\Order\Creditmemo|false
+     * @return false|\Magento\Sales\Model\Order\Creditmemo
      */
     protected function getCreditMemoForTransactionId($order, $transactionId)
     {
         foreach ($order->getCreditmemosCollection() as $creditmemo) {
             if ($creditmemo->getTransactionId() == $transactionId) {
                 $creditmemo->load($creditmemo->getId());
+
                 return $creditmemo;
             }
         }

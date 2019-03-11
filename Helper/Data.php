@@ -13,7 +13,9 @@ namespace Mygento\Payment\Helper;
  */
 class Data extends \Mygento\Base\Helper\Data
 {
-    /* @var string */
+    /**
+     * @var string
+     */
     protected $code = 'payment';
 
     /**
@@ -27,7 +29,6 @@ class Data extends \Mygento\Base\Helper\Data
     private $regManager;
 
     /**
-     *
      * @param \Mygento\Payment\Model\KeyManager $keyManager
      * @param \Mygento\Payment\Model\RegistrationManager $regManager
      * @param \Mygento\Base\Model\LogManager $logManager
@@ -56,7 +57,6 @@ class Data extends \Mygento\Base\Helper\Data
     }
 
     /**
-     *
      * @param int|string $orderId
      * @return string
      */
@@ -67,7 +67,7 @@ class Data extends \Mygento\Base\Helper\Data
 
     /**
      * @param string $link
-     * @return int|bool
+     * @return bool|int
      */
     public function decodeLink($link)
     {
@@ -113,6 +113,7 @@ class Data extends \Mygento\Base\Helper\Data
     public function getPaymentConfig($path, $storeId = null)
     {
         $scope = $this->code === 'payment' ? 'mygento' : 'payment';
+
         return parent::getConfig(
             $scope . '/' . $this->code . '/' . $path,
             $storeId

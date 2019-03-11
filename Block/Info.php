@@ -12,7 +12,6 @@ use Magento\Sales\Model\Order;
 
 class Info extends \Magento\Payment\Block\Info
 {
-
     /**
      * @var string
      */
@@ -51,6 +50,7 @@ class Info extends \Magento\Payment\Block\Info
     public function isPaid()
     {
         $order = $this->getOrder();
+
         return $order->hasInvoices() && !$order->hasCreditmemos();
     }
 
@@ -66,6 +66,7 @@ class Info extends \Magento\Payment\Block\Info
         ) {
             return true;
         }
+
         return false;
     }
 
@@ -77,6 +78,7 @@ class Info extends \Magento\Payment\Block\Info
         if ($this->isPaid() || $this->isAuthorized()) {
             return false;
         }
+
         return true;
     }
 
@@ -86,9 +88,10 @@ class Info extends \Magento\Payment\Block\Info
     public function isAuthorized()
     {
         $payment = $this->getOrder()->getPayment();
+
         return $payment->getAuthorizationTransaction() &&
-            (bool)$payment->getAmountAuthorized() &&
-            !(bool)$payment->getAmountPaid() &&
-            !(int)$payment->getAuthorizationTransaction()->getIsClosed();
+            (bool) $payment->getAmountAuthorized() &&
+            !(bool) $payment->getAmountPaid() &&
+            !(int) $payment->getAuthorizationTransaction()->getIsClosed();
     }
 }

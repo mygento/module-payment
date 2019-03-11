@@ -10,7 +10,6 @@ namespace Mygento\Payment\Block;
 
 class Redirect extends \Magento\Payment\Block\Form
 {
-
     /**
      * @var string
      */
@@ -22,7 +21,6 @@ class Redirect extends \Magento\Payment\Block\Form
     protected $helper;
 
     /**
-     *
      * @param \Mygento\Payment\Helper\Data $helper
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param array $data
@@ -37,7 +35,6 @@ class Redirect extends \Magento\Payment\Block\Form
     }
 
     /**
-     *
      * @return string
      */
     public function getPlaceUrl()

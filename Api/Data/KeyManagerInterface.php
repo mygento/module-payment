@@ -20,7 +20,7 @@ interface KeyManagerInterface
     /**
      * @param string $code
      * @param string $link
-     * @return int|bool
+     * @return bool|int
      */
     public function decodeLink(string $code, string $link);
 

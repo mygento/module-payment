@@ -60,6 +60,7 @@ class KeysRepository implements \Mygento\Payment\Api\KeysRepositoryInterface
                 __('Payment Keys with id "%1" does not exist.', $entityId)
             );
         }
+
         return $entity;
     }
 
@@ -77,6 +78,7 @@ class KeysRepository implements \Mygento\Payment\Api\KeysRepositoryInterface
                 __($exception->getMessage())
             );
         }
+
         return $entity;
     }
 
@@ -94,6 +96,7 @@ class KeysRepository implements \Mygento\Payment\Api\KeysRepositoryInterface
                 __($exception->getMessage())
             );
         }
+
         return true;
     }
 
@@ -149,6 +152,7 @@ class KeysRepository implements \Mygento\Payment\Api\KeysRepositoryInterface
         $searchResults->setSearchCriteria($criteria);
         $searchResults->setItems($collection->getItems());
         $searchResults->setTotalCount($collection->getSize());
+
         return $searchResults;
     }
 }

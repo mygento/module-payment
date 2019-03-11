@@ -14,22 +14,27 @@ class ActionContext
      * @var \Mygento\Payment\Helper\Data
      */
     public $helper;
+
     /**
      * @var \Mygento\Payment\Helper\Transaction
      */
     public $transHelper;
+
     /**
      * @var \Magento\Sales\Model\OrderFactory
      */
     public $orderFactory;
+
     /**
      * @var \Magento\Checkout\Model\Session
      */
     public $checkoutSession;
+
     /**
      * @var \Magento\Framework\Controller\Result\ForwardFactory
      */
     public $resultForwardFactory;
+
     /**
      * @var \Magento\Framework\App\Action\Context
      */

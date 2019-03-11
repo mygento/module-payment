@@ -10,7 +10,6 @@ namespace Mygento\Payment\Block;
 
 class Form extends \Magento\Payment\Block\Form
 {
-
     /** @var \Mygento\Payment\Helper\Data */
     protected $helper;
 
@@ -21,13 +20,11 @@ class Form extends \Magento\Payment\Block\Form
     protected $instructions;
 
     /**
-     *
      * @var string
      */
     protected $_template = 'Mygento_Payment::form/form.phtml';
 
     /**
-     *
      * @param \Mygento\Payment\Helper\Data $helper
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param array $data
@@ -52,7 +49,6 @@ class Form extends \Magento\Payment\Block\Form
     }
 
     /**
-     *
      * @return array
      */
     public function getInstructions()
@@ -60,6 +56,7 @@ class Form extends \Magento\Payment\Block\Form
         if ($this->instructions === null) {
             $this->instructions = $this->helper->getPaymentConfig('instructions');
         }
+
         return $this->instructions;
     }
 }

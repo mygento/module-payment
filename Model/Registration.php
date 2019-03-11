@@ -13,14 +13,6 @@ use Magento\Framework\Model\AbstractModel;
 class Registration extends AbstractModel implements \Mygento\Payment\Api\Data\RegistrationInterface
 {
     /**
-     * @return void
-     */
-    protected function _construct()
-    {
-        $this->_init(\Mygento\Payment\Model\ResourceModel\Registration::class);
-    }
-
-    /**
      * Get id
      * @return int|null
      */
@@ -170,5 +162,13 @@ class Registration extends AbstractModel implements \Mygento\Payment\Api\Data\Re
     public function setCreatedAt($createdAt)
     {
         return $this->setData(self::CREATED_AT, $createdAt);
+    }
+
+    /**
+     * @return void
+     */
+    protected function _construct()
+    {
+        $this->_init(\Mygento\Payment\Model\ResourceModel\Registration::class);
     }
 }

@@ -15,8 +15,8 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
  */
 class Config extends \Magento\Payment\Gateway\Config\Config
 {
-    /* @var \Magento\Framework\Encryption\Encryptor */
-    protected $_encryptor;
+    /** @var \Magento\Framework\Encryption\Encryptor */
+    protected $encryptor;
 
     public function __construct(
         \Magento\Framework\Encryption\Encryptor $encryptor,
@@ -25,6 +25,6 @@ class Config extends \Magento\Payment\Gateway\Config\Config
         $pathPattern = \Magento\Payment\Gateway\Config\Config::DEFAULT_PATH_PATTERN
     ) {
         parent::__construct($scopeConfig, $methodCode, $pathPattern);
-        $this->_encryptor = $encryptor;
+        $this->encryptor = $encryptor;
     }
 }

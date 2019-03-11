@@ -46,6 +46,7 @@ class Client implements \Magento\Payment\Gateway\Http\ClientInterface
     protected function sendRequest($path, array $params = [])
     {
         $this->curl->post($this->url . $path, $params);
+
         return $this->curl->getBody();
     }
 }

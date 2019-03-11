@@ -22,7 +22,7 @@ class Steps implements \Magento\Framework\Option\ArrayInterface
     {
         return [
             ['value' => self::ONE_STEP, 'label' => __('One-step')],
-            ['value' => self::TWO_STEP, 'label' => __('Two-step')]
+            ['value' => self::TWO_STEP, 'label' => __('Two-step')],
         ];
     }
 }

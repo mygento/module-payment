@@ -25,6 +25,7 @@ class CanCaptureHandler implements \Magento\Payment\Gateway\Config\ValueHandlerI
         if (!$payment) {
             return false;
         }
-        return $payment->getAuthorizationTransaction() && (bool)$payment->getAmountAuthorized();
+
+        return $payment->getAuthorizationTransaction() && (bool) $payment->getAmountAuthorized();
     }
 }

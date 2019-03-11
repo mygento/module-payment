@@ -31,7 +31,6 @@ class KeyManager implements \Mygento\Payment\Api\Data\KeyManagerInterface
     private $urlBuilder;
 
     /**
-     *
      * @param \Mygento\Payment\Api\KeysRepositoryInterface $keyRepo
      * @param \Mygento\Payment\Model\ResourceModel\Keys\CollectionFactory $keysCollection
      * @param \Mygento\Payment\Api\Data\KeysInterfaceFactory $keysModel
@@ -61,10 +60,11 @@ class KeyManager implements \Mygento\Payment\Api\Data\KeyManagerInterface
         $collection->addFieldToFilter('code', $code);
         if ($collection->getSize() > 0) {
             $item = $collection->getFirstItem();
+
             return $this->urlBuilder->getUrl($code . '/payment/redirect/', [
                 '_secure' => true,
                 '_nosid' => true,
-                'order' => $item->getHkey()
+                'order' => $item->getHkey(),
             ]);
         }
 
@@ -73,20 +73,20 @@ class KeyManager implements \Mygento\Payment\Api\Data\KeyManagerInterface
         $newKeyModel->setData([
             'hkey' => $key,
             'code' => $code,
-            'order_id' => $orderId
+            'order_id' => $orderId,
         ]);
         $this->keyRepo->save($newKeyModel);
 
         return $this->urlBuilder->getUrl($code . '/payment/redirect/', [
             '_secure' => true,
             '_nosid' => true,
-            'order' => $key
+            'order' => $key,
         ]);
     }
 
     /**
      * @param string $link
-     * @return int|bool
+     * @return bool|int
      */
     public function decodeLink(string $code, string $link)
     {
@@ -97,6 +97,7 @@ class KeyManager implements \Mygento\Payment\Api\Data\KeyManagerInterface
             return false;
         }
         $item = $collection->getFirstItem();
+
         return $item->getOrderId();
     }
 

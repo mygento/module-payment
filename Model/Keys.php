@@ -13,14 +13,6 @@ use Magento\Framework\Model\AbstractModel;
 class Keys extends AbstractModel implements \Mygento\Payment\Api\Data\KeysInterface
 {
     /**
-     * @return void
-     */
-    protected function _construct()
-    {
-        $this->_init(\Mygento\Payment\Model\ResourceModel\Keys::class);
-    }
-
-    /**
      * Get id
      * @return int|null
      */
@@ -94,5 +86,13 @@ class Keys extends AbstractModel implements \Mygento\Payment\Api\Data\KeysInterf
     public function setHkey($hkey)
     {
         return $this->setData(self::HKEY, $hkey);
+    }
+
+    /**
+     * @return void
+     */
+    protected function _construct()
+    {
+        $this->_init(\Mygento\Payment\Model\ResourceModel\Keys::class);
     }
 }

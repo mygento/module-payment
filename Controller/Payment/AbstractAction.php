@@ -14,18 +14,22 @@ abstract class AbstractAction extends \Magento\Framework\App\Action\Action
      * @var \Mygento\Payment\Helper\Data
      */
     protected $helper;
+
     /**
      * @var \Mygento\Payment\Helper\Transaction
      */
     protected $transHelper;
+
     /**
      * @var \Magento\Sales\Model\OrderFactory
      */
     protected $orderFactory;
+
     /**
      * @var \Magento\Checkout\Model\Session
      */
     protected $checkoutSession;
+
     /**
      * @var \Magento\Framework\Controller\Result\ForwardFactory
      */

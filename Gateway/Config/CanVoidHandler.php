@@ -25,8 +25,9 @@ class CanVoidHandler implements \Magento\Payment\Gateway\Config\ValueHandlerInte
         if (!$payment) {
             return false;
         }
+
         return $payment->getAuthorizationTransaction() &&
-          (bool)$payment->getAmountAuthorized() &&
-          !(bool)$payment->getAmountPaid();
+          (bool) $payment->getAmountAuthorized() &&
+          !(bool) $payment->getAmountPaid();
     }
 }

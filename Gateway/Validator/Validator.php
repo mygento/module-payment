@@ -32,6 +32,7 @@ class Validator extends \Magento\Payment\Gateway\Validator\AbstractValidator
     {
         $isValid = false;
         $errorMessages = [];
+
         return $this->createResult($isValid, $errorMessages);
     }
 }
