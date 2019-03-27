@@ -24,10 +24,10 @@
   ],
   "require": {
       "magento/module-payment": "100.*",
-      "mygento/module-base": "v2.3.x-dev"
+      "mygento/module-base": "~2.3.0"
   },
   "require-dev": {
-      "mygento/coding-standard": "^2.13.0",
+      "mygento/coding-standard": "^2.13.3",
       "vimeo/psalm": "^3.0"
   },
   "autoload": {
