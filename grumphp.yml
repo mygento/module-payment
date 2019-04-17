@@ -17,3 +17,4 @@ parameters:
         phpcs:
             warning_severity: null
         xmllint:
+        #psalm:
