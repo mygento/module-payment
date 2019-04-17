@@ -75,7 +75,7 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
         $payment->setTransactionId($transactionId);
         $payment->setIsTransactionClosed(0);
         $payment->registerCaptureNotification($amount, true);
-
+        $order->setIsInProcess(true);
         $order->save();
 
         if (!empty($transData)) {
