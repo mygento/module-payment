@@ -19,6 +19,9 @@ class Client implements \Magento\Payment\Gateway\Http\ClientInterface
     /** @var \Magento\Framework\HTTP\Client\Curl */
     protected $curl;
 
+    /** @var string */
+    protected $url = '';
+
     /**
      * @param \Magento\Payment\Gateway\ConfigInterface $config
      * @param \Magento\Framework\HTTP\Client\Curl $curl

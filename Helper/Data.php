@@ -56,7 +56,7 @@ class Data extends \Mygento\Base\Helper\Data
      */
     public function isActive()
     {
-        return $this->getPaymentConfig('active');
+        return $this->getConfig('active');
     }
 
     /**
@@ -110,10 +110,10 @@ class Data extends \Mygento\Base\Helper\Data
 
     /**
      * @param string $path
-     * @param int|null $storeId
+     * @param string|null $storeId
      * @return mixed
      */
-    public function getPaymentConfig($path, $storeId = null)
+    public function getConfig($path, $storeId = null)
     {
         $scope = $this->code === 'payment' ? 'mygento' : 'payment';
 
@@ -121,6 +121,17 @@ class Data extends \Mygento\Base\Helper\Data
             $scope . '/' . $this->code . '/' . $path,
             $storeId
         );
+    }
+
+    /**
+     * @param string $path
+     * @param int|null $storeId
+     * @return mixed
+     * @deprecated
+     */
+    public function getPaymentConfig($path, $storeId = null)
+    {
+        return $this->getConfig($path, $storeId);
     }
 
     /**
