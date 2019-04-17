@@ -42,6 +42,9 @@ class Redirect extends \Magento\Payment\Block\Form
         return '';
     }
 
+    /**
+     * @return string
+     */
     public function getCode()
     {
         return $this->helper->getCode();

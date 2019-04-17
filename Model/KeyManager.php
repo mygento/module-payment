@@ -85,6 +85,7 @@ class KeyManager implements \Mygento\Payment\Api\Data\KeyManagerInterface
     }
 
     /**
+     * @param string $code
      * @param string $link
      * @return bool|int
      */

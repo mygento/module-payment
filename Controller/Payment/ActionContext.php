@@ -40,6 +40,14 @@ class ActionContext
      */
     public $context;
 
+    /**
+     * @param \Mygento\Payment\Helper\Data $helper
+     * @param \Mygento\Payment\Helper\Transaction $transHelper
+     * @param \Magento\Sales\Model\OrderFactory $orderFactory
+     * @param \Magento\Checkout\Model\Session $checkoutSession
+     * @param \Magento\Framework\Controller\Result\ForwardFactory $resultForwardFactory
+     * @param \Magento\Framework\App\Action\Context $context
+     */
     public function __construct(
         \Mygento\Payment\Helper\Data $helper,
         \Mygento\Payment\Helper\Transaction $transHelper,

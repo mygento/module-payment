@@ -51,6 +51,9 @@ class Data extends \Mygento\Base\Helper\Data
         $this->regManager = $regManager;
     }
 
+    /**
+     * @return bool
+     */
     public function isActive()
     {
         return $this->getPaymentConfig('active');
@@ -107,7 +110,7 @@ class Data extends \Mygento\Base\Helper\Data
 
     /**
      * @param string $path
-     * @param null $storeId
+     * @param int|null $storeId
      * @return mixed
      */
     public function getPaymentConfig($path, $storeId = null)
@@ -120,6 +123,9 @@ class Data extends \Mygento\Base\Helper\Data
         );
     }
 
+    /**
+     * @return string
+     */
     protected function getDebugConfigPath()
     {
         return 'debug';

@@ -35,8 +35,11 @@ abstract class AbstractAction extends \Magento\Framework\App\Action\Action
      */
     protected $resultForwardFactory;
 
+    /**
+     * @param \Mygento\Payment\Controller\Payment\ActionContext $context
+     */
     public function __construct(
-        ActionContext $context
+        \Mygento\Payment\Controller\Payment\ActionContext $context
     ) {
         parent::__construct($context->context);
 

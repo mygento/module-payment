@@ -19,6 +19,11 @@ class Client implements \Magento\Payment\Gateway\Http\ClientInterface
     /** @var \Magento\Framework\HTTP\Client\Curl */
     protected $curl;
 
+    /**
+     * @param \Magento\Payment\Gateway\ConfigInterface $config
+     * @param \Magento\Framework\HTTP\Client\Curl $curl
+     * @param \Mygento\Payment\Helper\Data $helper
+     */
     public function __construct(
         \Magento\Payment\Gateway\ConfigInterface $config,
         \Magento\Framework\HTTP\Client\Curl $curl,
@@ -30,6 +35,9 @@ class Client implements \Magento\Payment\Gateway\Http\ClientInterface
     }
 
     /**
+     * @param \Magento\Payment\Gateway\Http\TransferInterface $transferObject
+     * @return null
+     *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function placeRequest(\Magento\Payment\Gateway\Http\TransferInterface $transferObject)
@@ -38,10 +46,9 @@ class Client implements \Magento\Payment\Gateway\Http\ClientInterface
     }
 
     /**
-     * @param string $endpoint
+     * @param string $path
      * @param array $params
-     * @param mixed $path
-     * @return string
+     * @return mixed
      */
     protected function sendRequest($path, array $params = [])
     {

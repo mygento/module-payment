@@ -20,6 +20,11 @@ class Info extends \Magento\Payment\Block\Info
     /** @var \Mygento\Payment\Helper\Data */
     protected $helper;
 
+    /**
+     * @param \Mygento\Payment\Helper\Data $helper
+     * @param \Magento\Framework\View\Element\Template\Context $context
+     * @param array $data
+     */
     public function __construct(
         \Mygento\Payment\Helper\Data $helper,
         \Magento\Framework\View\Element\Template\Context $context,
@@ -29,16 +34,25 @@ class Info extends \Magento\Payment\Block\Info
         $this->helper = $helper;
     }
 
+    /**
+     * @return \Magento\Sales\Api\Data\OrderInterface
+     */
     public function getOrder()
     {
         return $this->getInfo()->getOrder();
     }
 
+    /**
+     * @return string
+     */
     public function getPaylink()
     {
         return $this->helper->getLink($this->getOrder()->getId());
     }
 
+    /**
+     * @return string
+     */
     public function getCode()
     {
         return $this->helper->getCode();

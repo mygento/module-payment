@@ -8,19 +8,20 @@
 
 namespace Mygento\Payment\Gateway\Config;
 
-use Magento\Framework\App\Config\ScopeConfigInterface;
-
-/**
- * Class Config
- */
 class Config extends \Magento\Payment\Gateway\Config\Config
 {
     /** @var \Magento\Framework\Encryption\Encryptor */
     protected $encryptor;
 
+    /**
+     * @param \Magento\Framework\Encryption\Encryptor $encryptor
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+     * @param mixed $methodCode
+     * @param mixed $pathPattern
+     */
     public function __construct(
         \Magento\Framework\Encryption\Encryptor $encryptor,
-        ScopeConfigInterface $scopeConfig,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         $methodCode = null,
         $pathPattern = \Magento\Payment\Gateway\Config\Config::DEFAULT_PATH_PATTERN
     ) {

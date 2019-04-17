@@ -27,6 +27,8 @@ class Request implements \Magento\Payment\Gateway\Request\BuilderInterface
      *
      * @param array $buildSubject
      * @return array
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function build(array $buildSubject)
     {

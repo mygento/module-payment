@@ -46,6 +46,12 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
         $this->transactionManager = $transactionManager;
     }
 
+    /**
+     * @param \Magento\Sales\Api\Data\OrderInterface $order
+     * @param string $transactionId
+     * @param float $amount
+     * @param array $transData
+     */
     public function proceedAuthorize($order, $transactionId, $amount, $transData = [])
     {
         $this->helper->debug('proceed authorize: ' . $transactionId . ' ' . $amount, $transData);
@@ -68,6 +74,12 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
         }
     }
 
+    /**
+     * @param \Magento\Sales\Api\Data\OrderInterface $order
+     * @param string $transactionId
+     * @param float $amount
+     * @param array $transData
+     */
     public function proceedCapture($order, $transactionId, $amount, $transData = [])
     {
         $this->helper->debug('proceed capture: ' . $transactionId . ' ' . $amount, $transData);
@@ -89,7 +101,12 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
         }
     }
 
-    // NOT WORKING PERFECTLY [wait for 2.2]
+    /**
+     * @param \Magento\Sales\Api\Data\OrderInterface $order
+     * @param string $transactionId
+     * @param string $parentTransactionId
+     * @param float $amount
+     */
     public function proceedRefund($order, $transactionId, $parentTransactionId, $amount)
     {
         $this->helper->debug('proceed refund: ' . $transactionId .
@@ -104,6 +121,12 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
         $order->save();
     }
 
+    /**
+     * @param \Magento\Sales\Api\Data\OrderInterface $order
+     * @param string $transactionId
+     * @param string $parentTransactionId
+     * @param float $amount
+     */
     public function proceedVoid($order, $transactionId, $parentTransactionId, $amount)
     {
         $this->helper->debug('proceed void: ' . $transactionId
@@ -114,10 +137,15 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
         $order->save();
     }
 
+    /**
+     * @param \Magento\Sales\Api\Data\OrderInterface $order
+     * @param string $transactionId
+     * @param string $parentTransactionId
+     * @param mixed $transData
+     */
     public function proceedReceipt($order, $transactionId, $parentTransactionId, $transData)
     {
-        $this->helper->debug('proceed receipt: ' . $transactionId);
-        $this->helper->debug($transData);
+        $this->helper->debug('proceed receipt: ' . $transactionId, $transData);
 
         if ($this->checkIfTransactionExists(
             $transactionId,
@@ -151,10 +179,15 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
         $order->save();
     }
 
+    /**
+     * @param \Magento\Sales\Api\Data\OrderInterface $order
+     * @param string $transactionId
+     * @param string $parentTransactionId
+     * @param mixed $transData
+     */
     public function proceedRefundReceipt($order, $transactionId, $parentTransactionId, $transData)
     {
-        $this->helper->debug('Proceed receipt refund: ' . $transactionId);
-        $this->helper->debug($transData);
+        $this->helper->debug('Proceed receipt refund: ' . $transactionId, $transData);
 
         if ($this->checkIfTransactionExists(
             $transactionId,
@@ -188,6 +221,12 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
         $order->save();
     }
 
+    /**
+     * @param string $transactionId
+     * @param int $paymentId
+     * @param int $orderId
+     * @param mixed $transData
+     */
     protected function updateTransactionData($transactionId, $paymentId, $orderId, $transData)
     {
         $this->helper->debug('seaching for transaction: ' . $transactionId
@@ -214,8 +253,8 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Return invoice model for transaction
      *
+     * @param \Magento\Sales\Api\Data\OrderInterface $order
      * @param string $transactionId
-     * @param mixed $order
      * @return false|\Magento\Sales\Model\Order\Invoice
      */
     protected function getInvoiceForTransactionId($order, $transactionId)
@@ -234,8 +273,8 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Return invoice model for transaction
      *
+     * @param \Magento\Sales\Api\Data\OrderInterface $order
      * @param string $transactionId
-     * @param mixed $order
      * @return false|\Magento\Sales\Model\Order\Creditmemo
      */
     protected function getCreditMemoForTransactionId($order, $transactionId)
@@ -268,6 +307,10 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
         );
     }
 
+    /**
+     * @param mixed $transData
+     * @return mixed
+     */
     private function prepareTransData($transData)
     {
         if (!is_array($transData)) {
