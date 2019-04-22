@@ -3,7 +3,7 @@
   "type": "magento2-module",
   "version": "2.3.0",
   "license": "OSL-3.0",
-  "homepage": "https://github.com/mygento/payment-base",
+  "homepage": "https://github.com/mygento/module-payment",
   "description": "Mygento Payment Base",
   "authors": [
     {
