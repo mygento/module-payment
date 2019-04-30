@@ -35,7 +35,6 @@ class Adapter extends \Magento\Payment\Model\Method\Adapter
      * @param \Magento\Payment\Gateway\Command\CommandPoolInterface|null $commandPool
      * @param \Magento\Payment\Gateway\Validator\ValidatorPoolInterface|null $validatorPool
      * @param \Magento\Payment\Gateway\Command\CommandManagerInterface|null $commandExecutor
-     * @param \Psr\Log\LoggerInterface|null $logger
      */
     public function __construct(
         \Magento\Framework\Event\ManagerInterface $eventManager,
@@ -46,8 +45,7 @@ class Adapter extends \Magento\Payment\Model\Method\Adapter
         $infoBlockType,
         \Magento\Payment\Gateway\Command\CommandPoolInterface $commandPool = null,
         \Magento\Payment\Gateway\Validator\ValidatorPoolInterface $validatorPool = null,
-        \Magento\Payment\Gateway\Command\CommandManagerInterface $commandExecutor = null,
-        \Psr\Log\LoggerInterface $logger = null
+        \Magento\Payment\Gateway\Command\CommandManagerInterface $commandExecutor = null
     ) {
         parent::__construct(
             $eventManager,
@@ -58,8 +56,7 @@ class Adapter extends \Magento\Payment\Model\Method\Adapter
             $infoBlockType,
             $commandPool,
             $validatorPool,
-            $commandExecutor,
-            $logger
+            $commandExecutor
         );
 
         $this->commandPool = $commandPool;
