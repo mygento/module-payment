@@ -8,6 +8,8 @@
 
 namespace Mygento\Payment\Model;
 
+use Mygento\Payment\Model\ResourceModel\Keys\Collection;
+
 class KeyManager implements \Mygento\Payment\Api\Data\KeyManagerInterface
 {
     /**
@@ -58,6 +60,7 @@ class KeyManager implements \Mygento\Payment\Api\Data\KeyManagerInterface
         $collection = $this->keysCollection->create();
         $collection->addFieldToFilter('order_id', $orderId);
         $collection->addFieldToFilter('code', $code);
+        $collection->addOrder('id', Collection::SORT_ORDER_DESC);
         if ($collection->getSize() > 0) {
             $item = $collection->getFirstItem();
 
@@ -94,6 +97,7 @@ class KeyManager implements \Mygento\Payment\Api\Data\KeyManagerInterface
         $collection = $this->keysCollection->create();
         $collection->addFieldToFilter('hkey', $link);
         $collection->addFieldToFilter('code', $code);
+        $collection->addOrder('id', Collection::SORT_ORDER_DESC);
         if ($collection->getSize() == 0) {
             return false;
         }
