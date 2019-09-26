@@ -22,7 +22,7 @@ class RegistrationRepository implements \Mygento\Payment\Api\RegistrationReposit
     /** @var \Mygento\Payment\Model\ResourceModel\Registration\CollectionFactory */
     private $collectionFactory;
 
-    /** @var \Mygento\Payment\Model\RegistrationFactory */
+    /** @var \Mygento\Payment\Api\Data\RegistrationInterfaceFactory */
     private $entityFactory;
 
     /** @var \Mygento\Payment\Api\Data\RegistrationSearchResultsInterfaceFactory */
@@ -31,13 +31,13 @@ class RegistrationRepository implements \Mygento\Payment\Api\RegistrationReposit
     /**
      * @param \Mygento\Payment\Model\ResourceModel\Registration $resource
      * @param \Mygento\Payment\Model\ResourceModel\Registration\CollectionFactory $collectionFactory
-     * @param \Mygento\Payment\Model\RegistrationFactory $entityFactory
+     * @param \Mygento\Payment\Api\Data\RegistrationInterfaceFactory $entityFactory
      * @param \Mygento\Payment\Api\Data\RegistrationSearchResultsInterfaceFactory $searchResultsFactory
      */
     public function __construct(
         ResourceModel\Registration $resource,
         ResourceModel\Registration\CollectionFactory $collectionFactory,
-        RegistrationFactory $entityFactory,
+        \Mygento\Payment\Api\Data\RegistrationInterfaceFactory $entityFactory,
         \Mygento\Payment\Api\Data\RegistrationSearchResultsInterfaceFactory $searchResultsFactory
     ) {
         $this->resource = $resource;
