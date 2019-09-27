@@ -82,7 +82,7 @@ class RegistrationManager implements \Mygento\Payment\Api\Data\RegistrationManag
         $collection
             ->addFieldToFilter(RegistrationInterface::PAYMENT_ID, $paymentId)
             ->addFieldToFilter(RegistrationInterface::CODE, $code)
-            ->addOrder('id', Collection::SORT_ORDER_DESC)
+            ->addOrder(RegistrationInterface::ID, Collection::SORT_ORDER_DESC)
             ->setPageSize(1);
         if ($collection->getSize() > 0) {
             return $collection->getFirstItem();
