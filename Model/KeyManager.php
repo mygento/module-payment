@@ -8,6 +8,7 @@
 
 namespace Mygento\Payment\Model;
 
+use Mygento\Payment\Api\Data\KeysInterface;
 use Mygento\Payment\Model\ResourceModel\Keys\Collection;
 
 class KeyManager implements \Mygento\Payment\Api\Data\KeyManagerInterface
@@ -58,9 +59,9 @@ class KeyManager implements \Mygento\Payment\Api\Data\KeyManagerInterface
     public function getLink(string $code, $orderId): string
     {
         $collection = $this->keysCollection->create();
-        $collection->addFieldToFilter('order_id', $orderId);
-        $collection->addFieldToFilter('code', $code);
-        $collection->addOrder('id', Collection::SORT_ORDER_DESC);
+        $collection->addFieldToFilter(KeysInterface::ORDER_ID, $orderId);
+        $collection->addFieldToFilter(KeysInterface::CODE, $code);
+        $collection->addOrder(KeysInterface::ID, Collection::SORT_ORDER_DESC);
         if ($collection->getSize() > 0) {
             $item = $collection->getFirstItem();
 
@@ -74,9 +75,9 @@ class KeyManager implements \Mygento\Payment\Api\Data\KeyManagerInterface
         $key = $this->genHash($orderId);
         $newKeyModel = $this->keysModel->create();
         $newKeyModel->setData([
-            'hkey' => $key,
-            'code' => $code,
-            'order_id' => $orderId,
+            KeysInterface::HKEY => $key,
+            KeysInterface::CODE => $code,
+            KeysInterface::ORDER_ID => $orderId,
         ]);
         $this->keyRepo->save($newKeyModel);
 
@@ -95,9 +96,9 @@ class KeyManager implements \Mygento\Payment\Api\Data\KeyManagerInterface
     public function decodeLink(string $code, string $link)
     {
         $collection = $this->keysCollection->create();
-        $collection->addFieldToFilter('hkey', $link);
-        $collection->addFieldToFilter('code', $code);
-        $collection->addOrder('id', Collection::SORT_ORDER_DESC);
+        $collection->addFieldToFilter(KeysInterface::HKEY, $link);
+        $collection->addFieldToFilter(KeysInterface::CODE, $code);
+        $collection->addOrder(KeysInterface::ID, Collection::SORT_ORDER_DESC);
         if ($collection->getSize() == 0) {
             return false;
         }
