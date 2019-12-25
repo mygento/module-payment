@@ -72,6 +72,9 @@ Mygento:
           default: CURRENT_TIMESTAMP
           on_update: false
           comment: 'Created At'
+      indexes:
+        IX_MYG_PAY_REG_PAY_ID:
+          columns: ['payment_id']
       fk:
         FK_PAY_REG_ORD_SAL_ORD_ENT_ID:
           column: 'order_id'
