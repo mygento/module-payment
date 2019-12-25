@@ -23,6 +23,9 @@ Mygento:
           type: varchar
           nullable: false
           comment: 'Hashed Key'
+      indexes:
+        IX_MYG_PAY_KEY_CODE:
+          columns: ['code']
       fk:
         FK_PAY_KEY_ORD_SAL_ORD_ENT_ID:
           column: 'order_id'
@@ -75,6 +78,8 @@ Mygento:
       indexes:
         IX_MYG_PAY_REG_PAY_ID:
           columns: ['payment_id']
+        IX_MYG_PAY_REG_CODE:
+          columns: ['code']
       fk:
         FK_PAY_REG_ORD_SAL_ORD_ENT_ID:
           column: 'order_id'
