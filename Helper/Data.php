@@ -104,9 +104,21 @@ class Data extends \Mygento\Base\Helper\Data
      * @throws \Magento\Framework\Exception\LocalizedException
      * @return \Mygento\Payment\Api\Data\RegistrationInterface
      */
-    public function createRegistration($orderId, $paymentId, string $redirectUrl, $try = 1, ?string $paymentType = null)
-    {
-        return $this->regManager->createRegistration($this->code, $orderId, $paymentId, $redirectUrl, $try, $paymentType);
+    public function createRegistration(
+        $orderId,
+        $paymentId,
+        string $redirectUrl,
+        $try = 1,
+        ?string $paymentType = null
+    ) {
+        return $this->regManager->createRegistration(
+            $this->code,
+            $orderId,
+            $paymentId,
+            $redirectUrl,
+            $try,
+            $paymentType
+        );
     }
 
     /**

@@ -107,8 +107,14 @@ class RegistrationManager implements \Mygento\Payment\Api\Data\RegistrationManag
      * @throws \Magento\Framework\Exception\LocalizedException
      * @return \Mygento\Payment\Api\Data\RegistrationInterface
      */
-    public function createRegistration(string $code, $orderId, $paymentId, string $paymentUrl, $try = 1, ?string $paymentType = null)
-    {
+    public function createRegistration(
+        string $code,
+        $orderId,
+        $paymentId,
+        string $paymentUrl,
+        $try = 1,
+        ?string $paymentType = null
+    ) {
         /** @var Registration $model */
         $model = $this->regModel->create();
         $model

@@ -33,5 +33,12 @@ interface RegistrationManagerInterface
      * @param string|null $paymentType
      * @return \Mygento\Payment\Api\Data\RegistrationInterface
      */
-    public function createRegistration(string $code, $orderId, $paymentId, string $paymentUrl, $try = 1, ?string $paymentType = null);
+    public function createRegistration(
+        string $code,
+        $orderId,
+        $paymentId,
+        string $paymentUrl,
+        $try = 1,
+        ?string $paymentType = null
+    );
 }
