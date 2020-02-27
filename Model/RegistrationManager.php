@@ -8,6 +8,7 @@
 
 namespace Mygento\Payment\Model;
 
+use Mygento\Payment\Api\Data\RegistrationInterface;
 use Mygento\Payment\Model\ResourceModel\Registration\Collection;
 
 class RegistrationManager implements \Mygento\Payment\Api\Data\RegistrationManagerInterface
@@ -52,8 +53,9 @@ class RegistrationManager implements \Mygento\Payment\Api\Data\RegistrationManag
         /** @var Collection $collection */
         $collection = $this->regCollection->create();
         $collection
-            ->addFieldToFilter('order_id', $orderId)
-            ->addFieldToFilter('code', $code)
+            ->addFieldToFilter(RegistrationInterface::ORDER_ID, $orderId)
+            ->addFieldToFilter(RegistrationInterface::CODE, $code)
+            ->addOrder(RegistrationInterface::ID, Collection::SORT_ORDER_DESC)
             ->setPageSize(1);
         if ($collection->getSize() > 0) {
             return $collection->getFirstItem();
@@ -78,8 +80,9 @@ class RegistrationManager implements \Mygento\Payment\Api\Data\RegistrationManag
         /** @var Collection $collection */
         $collection = $this->regCollection->create();
         $collection
-            ->addFieldToFilter('payment_id', $paymentId)
-            ->addFieldToFilter('code', $code)
+            ->addFieldToFilter(RegistrationInterface::PAYMENT_ID, $paymentId)
+            ->addFieldToFilter(RegistrationInterface::CODE, $code)
+            ->addOrder(RegistrationInterface::ID, Collection::SORT_ORDER_DESC)
             ->setPageSize(1);
         if ($collection->getSize() > 0) {
             return $collection->getFirstItem();

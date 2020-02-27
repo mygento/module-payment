@@ -8,8 +8,11 @@
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="id"/>
         </constraint>
+        <index referenceId="IX_MYG_PAY_KEY_CODE" indexType="btree">
+            <column name="code"/>
+        </index>
         <constraint xsi:type="foreign" referenceId="FK_PAY_KEY_ORD_SAL_ORD_ENT_ID" table="mygento_payment_keys" column="order_id" referenceTable="sales_order" referenceColumn="entity_id" onDelete="CASCADE"/>
-        <index referenceId="IX_KEY_ORD_ID" indexType="btree">
+        <index indexType="btree" referenceId="IX_KEY_ORD_ID">
             <column name="order_id"/>
         </index>
     </table>
@@ -25,8 +28,14 @@
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="id"/>
         </constraint>
+        <index referenceId="IX_MYG_PAY_REG_PAY_ID" indexType="btree">
+            <column name="payment_id"/>
+        </index>
+        <index referenceId="IX_MYG_PAY_REG_CODE" indexType="btree">
+            <column name="code"/>
+        </index>
         <constraint xsi:type="foreign" referenceId="FK_PAY_REG_ORD_SAL_ORD_ENT_ID" table="mygento_payment_registration" column="order_id" referenceTable="sales_order" referenceColumn="entity_id" onDelete="CASCADE"/>
-        <index referenceId="IX_REG_ORD_ID" indexType="btree">
+        <index indexType="btree" referenceId="IX_REG_ORD_ID">
             <column name="order_id"/>
         </index>
     </table>

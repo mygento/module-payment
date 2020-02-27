@@ -22,7 +22,7 @@ class KeysRepository implements \Mygento\Payment\Api\KeysRepositoryInterface
     /** @var \Mygento\Payment\Model\ResourceModel\Keys\CollectionFactory */
     private $collectionFactory;
 
-    /** @var \Mygento\Payment\Model\KeysFactory */
+    /** @var \Mygento\Payment\Api\Data\KeysInterfaceFactory */
     private $entityFactory;
 
     /** @var \Mygento\Payment\Api\Data\KeysSearchResultsInterfaceFactory */
@@ -31,13 +31,13 @@ class KeysRepository implements \Mygento\Payment\Api\KeysRepositoryInterface
     /**
      * @param \Mygento\Payment\Model\ResourceModel\Keys $resource
      * @param \Mygento\Payment\Model\ResourceModel\Keys\CollectionFactory $collectionFactory
-     * @param \Mygento\Payment\Model\KeysFactory $entityFactory
+     * @param \Mygento\Payment\Api\Data\KeysInterfaceFactory $entityFactory
      * @param \Mygento\Payment\Api\Data\KeysSearchResultsInterfaceFactory $searchResultsFactory
      */
     public function __construct(
         ResourceModel\Keys $resource,
         ResourceModel\Keys\CollectionFactory $collectionFactory,
-        KeysFactory $entityFactory,
+        \Mygento\Payment\Api\Data\KeysInterfaceFactory $entityFactory,
         \Mygento\Payment\Api\Data\KeysSearchResultsInterfaceFactory $searchResultsFactory
     ) {
         $this->resource = $resource;
