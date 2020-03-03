@@ -2,7 +2,7 @@
 
 /**
  * @author Mygento Team
- * @copyright 2016-2019 Mygento (https://www.mygento.ru)
+ * @copyright 2016-2020 Mygento (https://www.mygento.ru)
  * @package Mygento_Payment
  */
 
@@ -100,12 +100,25 @@ class Data extends \Mygento\Base\Helper\Data
      * @param int|string $paymentId
      * @param string $redirectUrl
      * @param int $try
+     * @param string|null $paymentType
      * @throws \Magento\Framework\Exception\LocalizedException
      * @return \Mygento\Payment\Api\Data\RegistrationInterface
      */
-    public function createRegistration($orderId, $paymentId, string $redirectUrl, $try = 1)
-    {
-        return $this->regManager->createRegistration($this->code, $orderId, $paymentId, $redirectUrl, $try);
+    public function createRegistration(
+        $orderId,
+        $paymentId,
+        string $redirectUrl,
+        $try = 1,
+        ?string $paymentType = null
+    ) {
+        return $this->regManager->createRegistration(
+            $this->code,
+            $orderId,
+            $paymentId,
+            $redirectUrl,
+            $try,
+            $paymentType
+        );
     }
 
     /**

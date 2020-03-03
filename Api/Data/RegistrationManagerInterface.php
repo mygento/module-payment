@@ -2,7 +2,7 @@
 
 /**
  * @author Mygento Team
- * @copyright 2016-2019 Mygento (https://www.mygento.ru)
+ * @copyright 2016-2020 Mygento (https://www.mygento.ru)
  * @package Mygento_Payment
  */
 
@@ -30,7 +30,15 @@ interface RegistrationManagerInterface
      * @param int|string $paymentId
      * @param string $paymentUrl
      * @param int $try
+     * @param string|null $paymentType
      * @return \Mygento\Payment\Api\Data\RegistrationInterface
      */
-    public function createRegistration(string $code, $orderId, $paymentId, string $paymentUrl, $try = 1);
+    public function createRegistration(
+        string $code,
+        $orderId,
+        $paymentId,
+        string $paymentUrl,
+        $try = 1,
+        ?string $paymentType = null
+    );
 }

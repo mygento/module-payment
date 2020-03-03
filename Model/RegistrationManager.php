@@ -2,7 +2,7 @@
 
 /**
  * @author Mygento Team
- * @copyright 2016-2019 Mygento (https://www.mygento.ru)
+ * @copyright 2016-2020 Mygento (https://www.mygento.ru)
  * @package Mygento_Payment
  */
 
@@ -103,11 +103,18 @@ class RegistrationManager implements \Mygento\Payment\Api\Data\RegistrationManag
      * @param int|string $paymentId
      * @param string $paymentUrl
      * @param int $try
+     * @param string|null $paymentType
      * @throws \Magento\Framework\Exception\LocalizedException
      * @return \Mygento\Payment\Api\Data\RegistrationInterface
      */
-    public function createRegistration(string $code, $orderId, $paymentId, string $paymentUrl, $try = 1)
-    {
+    public function createRegistration(
+        string $code,
+        $orderId,
+        $paymentId,
+        string $paymentUrl,
+        $try = 1,
+        ?string $paymentType = null
+    ) {
         /** @var Registration $model */
         $model = $this->regModel->create();
         $model
@@ -115,6 +122,7 @@ class RegistrationManager implements \Mygento\Payment\Api\Data\RegistrationManag
             ->setPaymentId($paymentId)
             ->setOrderId($orderId)
             ->setPaymentUrl($paymentUrl)
+            ->setPaymentType($paymentType)
             ->setTry($try);
 
         $this->regRepo->save($model);
