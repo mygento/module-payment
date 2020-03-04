@@ -4,6 +4,8 @@
  * @copyright See COPYING.txt for license details.
  * @package Mygento_Payment
  */
+
+/** @var \Mygento\Payment\Block\Info $block */
 ?>
 <dl class="payment-method <?php echo $block->getCode(); ?>">
     <dt class="title"><?php echo $block->escapeHtml($block->getMethod()->getTitle()) ?></dt>
@@ -20,3 +22,11 @@
         <?php echo $block->escapeHtml(__('Order is paid')); ?>
     <?php endif; ?>
 </p>
+<?php if ($block->getCheckUrl()) : ?>
+<p>
+    <a href="<?php echo $block->getCheckUrl() ?>">
+        <?php echo $block->escapeHtml(__('Check payment status')); ?>
+    </a>
+</p>
+<?php endif; ?>
+
