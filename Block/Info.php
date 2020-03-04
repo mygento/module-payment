@@ -108,4 +108,12 @@ class Info extends \Magento\Payment\Block\Info
             !(bool) $payment->getAmountPaid() &&
             !(int) $payment->getAuthorizationTransaction()->getIsClosed();
     }
+
+    /**
+     * @return string
+     */
+    public function getCheckUrl()
+    {
+        return '';
+    }
 }
