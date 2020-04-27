@@ -113,6 +113,6 @@ class KeyManager implements \Mygento\Payment\Api\Data\KeyManagerInterface
      */
     public function genHash($orderId): string
     {
-        return strtr(base64_encode(microtime() . $orderId . rand(1, 1048576)), '+/=', '-_,');
+        return hash('sha1', base64_encode(microtime() . $orderId . rand(1, 1048576)));
     }
 }
