@@ -29,21 +29,29 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
     private $transactionManager;
 
     /**
+     * @var \Magento\Sales\Api\OrderRepositoryInterface
+     */
+    private $orderRepository;
+
+    /**
      * @param \Mygento\Payment\Helper\Data $helper
      * @param \Magento\Sales\Model\Order\Payment\Transaction\ManagerInterface $transactionManager
      * @param \Magento\Sales\Api\TransactionRepositoryInterface $transactionRepo
+     * @param \Magento\Sales\Api\OrderRepositoryInterface $orderRepository
      * @param \Magento\Framework\App\Helper\Context $context
      */
     public function __construct(
         \Mygento\Payment\Helper\Data $helper,
         \Magento\Sales\Model\Order\Payment\Transaction\ManagerInterface $transactionManager,
         \Magento\Sales\Api\TransactionRepositoryInterface $transactionRepo,
+        \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
         \Magento\Framework\App\Helper\Context $context
     ) {
         parent::__construct($context);
         $this->helper = $helper;
         $this->transactionRepo = $transactionRepo;
         $this->transactionManager = $transactionManager;
+        $this->orderRepository = $orderRepository;
     }
 
     /**
@@ -61,7 +69,7 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
         $payment->registerAuthorizationNotification($amount);
         $payment->setAmountAuthorized($amount);
 
-        $order->save();
+        $this->orderRepository->save($order);
 
         if (!empty($transData)) {
             $transData = $this->prepareTransData($transData);
@@ -88,7 +96,8 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
         $payment->setIsTransactionClosed(0);
         $payment->registerCaptureNotification($amount, true);
         $order->setIsInProcess(true);
-        $order->save();
+
+        $this->orderRepository->save($order);
 
         if (!empty($transData)) {
             $transData = $this->prepareTransData($transData);
@@ -118,7 +127,7 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
             ->setIsTransactionClosed(true);
         $payment->registerRefundNotification($amount);
 
-        $order->save();
+        $this->orderRepository->save($order);
     }
 
     /**
@@ -134,7 +143,7 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
         $payment = $order->getPayment();
         $payment->registerVoidNotification($amount);
 
-        $order->save();
+        $this->orderRepository->save($order);
     }
 
     /**
@@ -176,7 +185,8 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
             __('Got Fiscal Receipt for transaction %1', $parentTransactionId),
             false
         );
-        $order->save();
+
+        $this->orderRepository->save($order);
     }
 
     /**
@@ -218,7 +228,8 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
             __('Got Fiscal Refund Receipt for transaction %1', $parentTransactionId),
             false
         );
-        $order->save();
+
+        $this->orderRepository->save($order);
     }
 
     /**
