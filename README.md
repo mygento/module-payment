@@ -1,6 +1,6 @@
 # Magento 2 Payment Base
 
-[![Build Status](https://travis-ci.com/mygento/module-payment.svg?branch=v2.3)](https://travis-ci.com/mygento/module-payment)
+[![Build Status](https://travis-ci.com/mygento/module-payment.svg?branch=v2.4)](https://travis-ci.com/mygento/module-payment)
 [![Latest Stable Version](https://poser.pugx.com/mygento/module-payment/v/stable)](https://packagist.com/packages/mygento/module-payment)
 [![Total Downloads](https://poser.pugx.com/mygento/module-payment/downloads)](https://packagist.com/packages/mygento/module-payment)
 
@@ -8,4 +8,4 @@
 * Include the repository: `composer require mygento/module-payment`
 
 ## Compability
-The module is tested on magento version 2.3.x
+The module is tested on magento version 2.4.x
