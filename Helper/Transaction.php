@@ -156,11 +156,13 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
     {
         $this->helper->debug('proceed receipt: ' . $transactionId, $transData);
 
-        if ($this->checkIfTransactionExists(
-            $transactionId,
-            $order->getPayment()->getId(),
-            $order->getId()
-        )) {
+        if (
+            $this->checkIfTransactionExists(
+                $transactionId,
+                $order->getPayment()->getId(),
+                $order->getId()
+            )
+        ) {
             $this->helper->notice('transaction %1 already exists', $transactionId);
 
             return;
@@ -199,11 +201,13 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
     {
         $this->helper->debug('Proceed receipt refund: ' . $transactionId, $transData);
 
-        if ($this->checkIfTransactionExists(
-            $transactionId,
-            $order->getPayment()->getId(),
-            $order->getId()
-        )) {
+        if (
+            $this->checkIfTransactionExists(
+                $transactionId,
+                $order->getPayment()->getId(),
+                $order->getId()
+            )
+        ) {
             $this->helper->notice('Transaction %1 already exists', $transactionId);
 
             return;

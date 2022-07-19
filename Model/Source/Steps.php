@@ -10,8 +10,8 @@ namespace Mygento\Payment\Model\Source;
 
 class Steps implements \Magento\Framework\Option\ArrayInterface
 {
-    const ONE_STEP = 1;
-    const TWO_STEP = 2;
+    public const ONE_STEP = 1;
+    public const TWO_STEP = 2;
 
     /**
      * One/Two factor payment

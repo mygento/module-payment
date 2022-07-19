@@ -74,7 +74,8 @@ class Info extends \Magento\Payment\Block\Info
     public function isComplete()
     {
         $state = $this->getOrder()->getState();
-        if ($this->getOrder()->isCanceled() ||
+        if (
+            $this->getOrder()->isCanceled() ||
             $state === Order::STATE_COMPLETE ||
             $state === Order::STATE_CLOSED
         ) {

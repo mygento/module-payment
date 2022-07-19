@@ -10,14 +10,14 @@ namespace Mygento\Payment\Api\Data;
 
 interface RegistrationInterface
 {
-    const ID = 'id';
-    const CODE = 'code';
-    const ORDER_ID = 'order_id';
-    const PAYMENT_ID = 'payment_id';
-    const PAYMENT_URL = 'payment_url';
-    const TRY = 'try';
-    const PAYMENT_TYPE = 'payment_type';
-    const CREATED_AT = 'created_at';
+    public const ID = 'id';
+    public const CODE = 'code';
+    public const ORDER_ID = 'order_id';
+    public const PAYMENT_ID = 'payment_id';
+    public const PAYMENT_URL = 'payment_url';
+    public const TRY = 'try';
+    public const PAYMENT_TYPE = 'payment_type';
+    public const CREATED_AT = 'created_at';
 
     /**
      * Get id

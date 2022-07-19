@@ -10,10 +10,10 @@ namespace Mygento\Payment\Api\Data;
 
 interface KeysInterface
 {
-    const ID = 'id';
-    const CODE = 'code';
-    const ORDER_ID = 'order_id';
-    const HKEY = 'hkey';
+    public const ID = 'id';
+    public const CODE = 'code';
+    public const ORDER_ID = 'order_id';
+    public const HKEY = 'hkey';
 
     /**
      * Get id

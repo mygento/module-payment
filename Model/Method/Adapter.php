@@ -76,9 +76,10 @@ class Adapter extends \Magento\Payment\Model\Method\Adapter
             return;
         }
 
-        if (isset($arguments['payment'])
+        if (
+            isset($arguments['payment'])
             && $arguments['payment'] instanceof \Magento\Payment\Model\InfoInterface
-          ) {
+        ) {
             $arguments['payment'] = $this->paymentDataObjectFactory->create($arguments['payment']);
         }
         $command = $this->commandPool->get($commandCode);
