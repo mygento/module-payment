@@ -34,10 +34,16 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
     private $orderRepository;
 
     /**
+     * @var \Magento\Sales\Model\Order\Email\Sender\InvoiceSender
+     */
+    private $invoiceSender;
+
+    /**
      * @param \Mygento\Payment\Helper\Data $helper
      * @param \Magento\Sales\Model\Order\Payment\Transaction\ManagerInterface $transactionManager
      * @param \Magento\Sales\Api\TransactionRepositoryInterface $transactionRepo
      * @param \Magento\Sales\Api\OrderRepositoryInterface $orderRepository
+     * @param \Magento\Sales\Model\Order\Email\Sender\InvoiceSender $invoiceSender
      * @param \Magento\Framework\App\Helper\Context $context
      */
     public function __construct(
@@ -45,6 +51,7 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Sales\Model\Order\Payment\Transaction\ManagerInterface $transactionManager,
         \Magento\Sales\Api\TransactionRepositoryInterface $transactionRepo,
         \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
+        \Magento\Sales\Model\Order\Email\Sender\InvoiceSender $invoiceSender,
         \Magento\Framework\App\Helper\Context $context
     ) {
         parent::__construct($context);
@@ -52,6 +59,7 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
         $this->transactionRepo = $transactionRepo;
         $this->transactionManager = $transactionManager;
         $this->orderRepository = $orderRepository;
+        $this->invoiceSender = $invoiceSender;
     }
 
     /**
@@ -107,6 +115,14 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
                 $order->getId(),
                 $transData
             );
+        }
+        $invoice = $payment->getCreatedInvoice();
+        if ($invoice && !$invoice->getEmailSent()) {
+            $this->invoiceSender->send($invoice);
+            $order->addStatusHistoryComment(
+                __('You notified customer about invoice #%1.', $invoice->getIncrementId())
+            )
+                ->save();
         }
     }
 
