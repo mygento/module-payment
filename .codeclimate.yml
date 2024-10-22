@@ -1,5 +1,0 @@
-plugins:
-  sonar-php:
-    enabled: true
-exclude_patterns:
-  - 'Test'
