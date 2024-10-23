@@ -34,16 +34,10 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
     private $orderRepository;
 
     /**
-     * @var \Magento\Sales\Model\Order\Email\Sender\InvoiceSender
-     */
-    private $invoiceSender;
-
-    /**
      * @param \Mygento\Payment\Helper\Data $helper
      * @param \Magento\Sales\Model\Order\Payment\Transaction\ManagerInterface $transactionManager
      * @param \Magento\Sales\Api\TransactionRepositoryInterface $transactionRepo
      * @param \Magento\Sales\Api\OrderRepositoryInterface $orderRepository
-     * @param \Magento\Sales\Model\Order\Email\Sender\InvoiceSender $invoiceSender
      * @param \Magento\Framework\App\Helper\Context $context
      */
     public function __construct(
@@ -51,7 +45,6 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Sales\Model\Order\Payment\Transaction\ManagerInterface $transactionManager,
         \Magento\Sales\Api\TransactionRepositoryInterface $transactionRepo,
         \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
-        \Magento\Sales\Model\Order\Email\Sender\InvoiceSender $invoiceSender,
         \Magento\Framework\App\Helper\Context $context
     ) {
         parent::__construct($context);
@@ -59,7 +52,6 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
         $this->transactionRepo = $transactionRepo;
         $this->transactionManager = $transactionManager;
         $this->orderRepository = $orderRepository;
-        $this->invoiceSender = $invoiceSender;
     }
 
     /**
@@ -67,6 +59,8 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
      * @param string $transactionId
      * @param float $amount
      * @param array $transData
+     *
+     * @return \Magento\Sales\Api\Data\OrderPaymentInterface
      */
     public function proceedAuthorize($order, $transactionId, $amount, $transData = [])
     {
@@ -88,6 +82,8 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
                 $transData
             );
         }
+
+        return $payment;
     }
 
     /**
@@ -95,6 +91,8 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
      * @param string $transactionId
      * @param float $amount
      * @param array $transData
+     *
+     * @return \Magento\Sales\Api\Data\OrderPaymentInterface
      */
     public function proceedCapture($order, $transactionId, $amount, $transData = [])
     {
@@ -116,14 +114,8 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
                 $transData
             );
         }
-        $invoice = $payment->getCreatedInvoice();
-        if ($invoice && !$invoice->getEmailSent()) {
-            $this->invoiceSender->send($invoice);
-            $order->addStatusHistoryComment(
-                __('You notified customer about invoice #%1.', $invoice->getIncrementId())
-            )
-                ->save();
-        }
+
+        return $payment;
     }
 
     /**
@@ -131,6 +123,8 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
      * @param string $transactionId
      * @param string $parentTransactionId
      * @param float $amount
+     *
+     * @return \Magento\Sales\Api\Data\OrderPaymentInterface
      */
     public function proceedRefund($order, $transactionId, $parentTransactionId, $amount)
     {
@@ -144,6 +138,8 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
         $payment->registerRefundNotification($amount);
 
         $this->orderRepository->save($order);
+
+        return $payment;
     }
 
     /**
@@ -151,6 +147,8 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
      * @param string $transactionId
      * @param string $parentTransactionId
      * @param float $amount
+     *
+     * @return \Magento\Sales\Api\Data\OrderPaymentInterface
      */
     public function proceedVoid($order, $transactionId, $parentTransactionId, $amount)
     {
@@ -160,6 +158,8 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
         $payment->registerVoidNotification($amount);
 
         $this->orderRepository->save($order);
+
+        return $payment;
     }
 
     /**
@@ -167,6 +167,8 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
      * @param string $transactionId
      * @param string $parentTransactionId
      * @param mixed $transData
+     *
+     * @return \Magento\Sales\Api\Data\OrderPaymentInterface
      */
     public function proceedReceipt($order, $transactionId, $parentTransactionId, $transData)
     {
@@ -205,6 +207,8 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
         );
 
         $this->orderRepository->save($order);
+
+        return $payment;
     }
 
     /**
@@ -212,6 +216,8 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
      * @param string $transactionId
      * @param string $parentTransactionId
      * @param mixed $transData
+     *
+     * @return \Magento\Sales\Api\Data\OrderPaymentInterface
      */
     public function proceedRefundReceipt($order, $transactionId, $parentTransactionId, $transData)
     {
@@ -250,6 +256,8 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
         );
 
         $this->orderRepository->save($order);
+
+        return $payment;
     }
 
     /**
