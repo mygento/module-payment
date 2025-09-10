@@ -2,7 +2,7 @@
 
 /**
  * @author Mygento Team
- * @copyright 2016-2020 Mygento (https://www.mygento.ru)
+ * @copyright 2016-2026 Mygento (https://www.mygento.com)
  * @package Mygento_Payment
  */
 
@@ -54,7 +54,7 @@ class ActionContext
         \Magento\Sales\Model\OrderFactory $orderFactory,
         \Magento\Checkout\Model\Session $checkoutSession,
         \Magento\Framework\Controller\Result\ForwardFactory $resultForwardFactory,
-        \Magento\Framework\App\Action\Context $context
+        \Magento\Framework\App\Action\Context $context,
     ) {
         $this->helper = $helper;
         $this->transHelper = $transHelper;

@@ -2,11 +2,19 @@
 
 /**
  * @author Mygento Team
- * @copyright 2016-2020 Mygento (https://www.mygento.ru)
+ * @copyright 2016-2026 Mygento (https://www.mygento.com)
  * @package Mygento_Payment
  */
 
 namespace Mygento\Payment\Model\Method;
+
+use Magento\Framework\Event\ManagerInterface;
+use Magento\Payment\Gateway\Command\CommandManagerInterface;
+use Magento\Payment\Gateway\Command\CommandPoolInterface;
+use Magento\Payment\Gateway\Config\ValueHandlerPoolInterface;
+use Magento\Payment\Gateway\Data\PaymentDataObjectFactory;
+use Magento\Payment\Gateway\Validator\ValidatorPoolInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * @SuppressWarnings(PHPMD.ExcessiveParameterList)
@@ -24,30 +32,17 @@ class Adapter extends \Magento\Payment\Model\Method\Adapter
      */
     protected $paymentDataObjectFactory;
 
-    /**
-     * Adapter constructor.
-     * @param \Magento\Framework\Event\ManagerInterface $eventManager
-     * @param \Magento\Payment\Gateway\Config\ValueHandlerPoolInterface $valueHandlerPool
-     * @param \Magento\Payment\Gateway\Data\PaymentDataObjectFactory $paymentDataObjectFactory
-     * @param string $code
-     * @param string $formBlockType
-     * @param string $infoBlockType
-     * @param \Magento\Payment\Gateway\Command\CommandPoolInterface|null $commandPool
-     * @param \Magento\Payment\Gateway\Validator\ValidatorPoolInterface|null $validatorPool
-     * @param \Magento\Payment\Gateway\Command\CommandManagerInterface|null $commandExecutor
-     * @param \Psr\Log\LoggerInterface|null $logger
-     */
     public function __construct(
-        \Magento\Framework\Event\ManagerInterface $eventManager,
-        \Magento\Payment\Gateway\Config\ValueHandlerPoolInterface $valueHandlerPool,
-        \Magento\Payment\Gateway\Data\PaymentDataObjectFactory $paymentDataObjectFactory,
+        ManagerInterface $eventManager,
+        ValueHandlerPoolInterface $valueHandlerPool,
+        PaymentDataObjectFactory $paymentDataObjectFactory,
         $code,
         $formBlockType,
         $infoBlockType,
-        \Magento\Payment\Gateway\Command\CommandPoolInterface $commandPool = null,
-        \Magento\Payment\Gateway\Validator\ValidatorPoolInterface $validatorPool = null,
-        \Magento\Payment\Gateway\Command\CommandManagerInterface $commandExecutor = null,
-        \Psr\Log\LoggerInterface $logger = null
+        ?CommandPoolInterface $commandPool = null,
+        ?ValidatorPoolInterface $validatorPool = null,
+        ?CommandManagerInterface $commandExecutor = null,
+        ?LoggerInterface $logger = null,
     ) {
         parent::__construct(
             $eventManager,
@@ -59,18 +54,14 @@ class Adapter extends \Magento\Payment\Model\Method\Adapter
             $commandPool,
             $validatorPool,
             $commandExecutor,
-            $logger
+            $logger,
         );
 
         $this->commandPool = $commandPool;
         $this->paymentDataObjectFactory = $paymentDataObjectFactory;
     }
 
-    /**
-     * @param string $commandCode
-     * @param array $arguments
-     */
-    public function executeCustomCommand($commandCode, $arguments = [])
+    public function executeCustomCommand(string $commandCode, array $arguments = [])
     {
         if ($this->commandPool === null) {
             return;

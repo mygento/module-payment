@@ -2,7 +2,7 @@
 
 /**
  * @author Mygento Team
- * @copyright 2016-2020 Mygento (https://www.mygento.ru)
+ * @copyright 2016-2026 Mygento (https://www.mygento.com)
  * @package Mygento_Payment
  */
 
@@ -39,6 +39,6 @@ interface RegistrationManagerInterface
         $paymentId,
         string $paymentUrl,
         $try = 1,
-        ?string $paymentType = null
+        ?string $paymentType = null,
     );
 }

@@ -2,7 +2,7 @@
 
 /**
  * @author Mygento Team
- * @copyright 2016-2020 Mygento (https://www.mygento.ru)
+ * @copyright 2016-2026 Mygento (https://www.mygento.com)
  * @package Mygento_Payment
  */
 
@@ -20,7 +20,7 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
     {
         $this->_init(
             \Mygento\Payment\Model\Registration::class,
-            \Mygento\Payment\Model\ResourceModel\Registration::class
+            \Mygento\Payment\Model\ResourceModel\Registration::class,
         );
     }
 }

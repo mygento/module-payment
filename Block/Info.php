@@ -2,7 +2,7 @@
 
 /**
  * @author Mygento Team
- * @copyright 2016-2020 Mygento (https://www.mygento.ru)
+ * @copyright 2016-2026 Mygento (https://www.mygento.com)
  * @package Mygento_Payment
  */
 
@@ -28,7 +28,7 @@ class Info extends \Magento\Payment\Block\Info
     public function __construct(
         \Mygento\Payment\Helper\Data $helper,
         \Magento\Framework\View\Element\Template\Context $context,
-        array $data = []
+        array $data = [],
     ) {
         parent::__construct($context, $data);
         $this->helper = $helper;

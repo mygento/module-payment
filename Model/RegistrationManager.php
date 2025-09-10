@@ -2,7 +2,7 @@
 
 /**
  * @author Mygento Team
- * @copyright 2016-2020 Mygento (https://www.mygento.ru)
+ * @copyright 2016-2026 Mygento (https://www.mygento.com)
  * @package Mygento_Payment
  */
 
@@ -36,7 +36,7 @@ class RegistrationManager implements \Mygento\Payment\Api\Data\RegistrationManag
     public function __construct(
         \Mygento\Payment\Api\RegistrationRepositoryInterface $regRepo,
         \Mygento\Payment\Model\ResourceModel\Registration\CollectionFactory $regCollection,
-        \Mygento\Payment\Api\Data\RegistrationInterfaceFactory $regModel
+        \Mygento\Payment\Api\Data\RegistrationInterfaceFactory $regModel,
     ) {
         $this->regRepo = $regRepo;
         $this->regCollection = $regCollection;
@@ -113,7 +113,7 @@ class RegistrationManager implements \Mygento\Payment\Api\Data\RegistrationManag
         $paymentId,
         string $paymentUrl,
         $try = 1,
-        ?string $paymentType = null
+        ?string $paymentType = null,
     ) {
         /** @var Registration $model */
         $model = $this->regModel->create();

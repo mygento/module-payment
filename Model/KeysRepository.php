@@ -2,7 +2,7 @@
 
 /**
  * @author Mygento Team
- * @copyright 2016-2020 Mygento (https://www.mygento.ru)
+ * @copyright 2016-2026 Mygento (https://www.mygento.com)
  * @package Mygento_Payment
  */
 
@@ -38,7 +38,7 @@ class KeysRepository implements \Mygento\Payment\Api\KeysRepositoryInterface
         ResourceModel\Keys $resource,
         ResourceModel\Keys\CollectionFactory $collectionFactory,
         \Mygento\Payment\Api\Data\KeysInterfaceFactory $entityFactory,
-        \Mygento\Payment\Api\Data\KeysSearchResultsInterfaceFactory $searchResultsFactory
+        \Mygento\Payment\Api\Data\KeysSearchResultsInterfaceFactory $searchResultsFactory,
     ) {
         $this->resource = $resource;
         $this->collectionFactory = $collectionFactory;
@@ -57,7 +57,7 @@ class KeysRepository implements \Mygento\Payment\Api\KeysRepositoryInterface
         $this->resource->load($entity, $entityId);
         if (!$entity->getId()) {
             throw new \Magento\Framework\Exception\NoSuchEntityException(
-                __('Payment Keys with id "%1" does not exist.', $entityId)
+                __('Payment Keys with id "%1" does not exist.', $entityId),
             );
         }
 
@@ -75,7 +75,7 @@ class KeysRepository implements \Mygento\Payment\Api\KeysRepositoryInterface
             $this->resource->save($entity);
         } catch (\Exception $exception) {
             throw new \Magento\Framework\Exception\CouldNotSaveException(
-                __($exception->getMessage())
+                __($exception->getMessage()),
             );
         }
 
@@ -93,7 +93,7 @@ class KeysRepository implements \Mygento\Payment\Api\KeysRepositoryInterface
             $this->resource->delete($entity);
         } catch (\Exception $exception) {
             throw new \Magento\Framework\Exception\CouldNotDeleteException(
-                __($exception->getMessage())
+                __($exception->getMessage()),
             );
         }
 
@@ -140,7 +140,7 @@ class KeysRepository implements \Mygento\Payment\Api\KeysRepositoryInterface
             foreach ($sortOrders as $sortOrder) {
                 $collection->addOrder(
                     $sortOrder->getField(),
-                    ($sortOrder->getDirection() == $sortAsc) ? $orderAsc : $orderDesc
+                    ($sortOrder->getDirection() == $sortAsc) ? $orderAsc : $orderDesc,
                 );
             }
         }

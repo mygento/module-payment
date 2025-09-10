@@ -2,7 +2,7 @@
 
 /**
  * @author Mygento Team
- * @copyright 2016-2020 Mygento (https://www.mygento.ru)
+ * @copyright 2016-2026 Mygento (https://www.mygento.com)
  * @package Mygento_Payment
  */
 
@@ -30,7 +30,7 @@ class Client implements \Magento\Payment\Gateway\Http\ClientInterface
     public function __construct(
         \Magento\Payment\Gateway\ConfigInterface $config,
         \Magento\Framework\HTTP\Client\Curl $curl,
-        \Mygento\Payment\Helper\Data $helper
+        \Mygento\Payment\Helper\Data $helper,
     ) {
         $this->curl = $curl;
         $this->config = $config;

@@ -2,7 +2,7 @@
 
 /**
  * @author Mygento Team
- * @copyright 2016-2020 Mygento (https://www.mygento.ru)
+ * @copyright 2016-2026 Mygento (https://www.mygento.com)
  * @package Mygento_Payment
  */
 
@@ -17,7 +17,7 @@ class Request implements \Magento\Payment\Gateway\Request\BuilderInterface
      * @param \Mygento\Payment\Helper\Data $helper
      */
     public function __construct(
-        \Mygento\Payment\Helper\Data $helper
+        \Mygento\Payment\Helper\Data $helper,
     ) {
         $this->helper = $helper;
     }

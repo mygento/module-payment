@@ -2,7 +2,7 @@
 
 /**
  * @author Mygento Team
- * @copyright 2016-2020 Mygento (https://www.mygento.ru)
+ * @copyright 2016-2026 Mygento (https://www.mygento.com)
  * @package Mygento_Payment
  */
 
@@ -39,7 +39,7 @@ abstract class AbstractAction extends \Magento\Framework\App\Action\Action
      * @param \Mygento\Payment\Controller\Payment\ActionContext $context
      */
     public function __construct(
-        \Mygento\Payment\Controller\Payment\ActionContext $context
+        \Mygento\Payment\Controller\Payment\ActionContext $context,
     ) {
         parent::__construct($context->context);
 

@@ -2,7 +2,7 @@
 
 /**
  * @author Mygento Team
- * @copyright 2016-2020 Mygento (https://www.mygento.ru)
+ * @copyright 2016-2026 Mygento (https://www.mygento.com)
  * @package Mygento_Payment
  */
 
@@ -43,7 +43,7 @@ class KeyManager implements \Mygento\Payment\Api\Data\KeyManagerInterface
         \Mygento\Payment\Api\KeysRepositoryInterface $keyRepo,
         \Mygento\Payment\Model\ResourceModel\Keys\CollectionFactory $keysCollection,
         \Mygento\Payment\Api\Data\KeysInterfaceFactory $keysModel,
-        \Magento\Framework\UrlInterface $urlBuilder
+        \Magento\Framework\UrlInterface $urlBuilder,
     ) {
         $this->keyRepo = $keyRepo;
         $this->keysCollection = $keysCollection;

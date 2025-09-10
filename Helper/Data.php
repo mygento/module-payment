@@ -2,7 +2,7 @@
 
 /**
  * @author Mygento Team
- * @copyright 2016-2020 Mygento (https://www.mygento.ru)
+ * @copyright 2016-2026 Mygento (https://www.mygento.com)
  * @package Mygento_Payment
  */
 
@@ -40,12 +40,12 @@ class Data extends \Mygento\Base\Helper\Data
         \Mygento\Payment\Model\RegistrationManager $regManager,
         \Mygento\Base\Model\LogManager $logManager,
         \Magento\Framework\Encryption\Encryptor $encryptor,
-        \Magento\Framework\App\Helper\Context $context
+        \Magento\Framework\App\Helper\Context $context,
     ) {
         parent::__construct(
             $logManager,
             $encryptor,
-            $context
+            $context,
         );
         $this->keyManager = $keyManager;
         $this->regManager = $regManager;
@@ -109,7 +109,7 @@ class Data extends \Mygento\Base\Helper\Data
         $paymentId,
         string $redirectUrl,
         $try = 1,
-        ?string $paymentType = null
+        ?string $paymentType = null,
     ) {
         return $this->regManager->createRegistration(
             $this->code,
@@ -117,7 +117,7 @@ class Data extends \Mygento\Base\Helper\Data
             $paymentId,
             $redirectUrl,
             $try,
-            $paymentType
+            $paymentType,
         );
     }
 
@@ -132,7 +132,7 @@ class Data extends \Mygento\Base\Helper\Data
 
         return parent::getConfig(
             $scope . '/' . $this->code . '/' . $path,
-            $storeId
+            $storeId,
         );
     }
 

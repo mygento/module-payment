@@ -2,7 +2,7 @@
 
 /**
  * @author Mygento Team
- * @copyright 2016-2020 Mygento (https://www.mygento.ru)
+ * @copyright 2016-2026 Mygento (https://www.mygento.com)
  * @package Mygento_Payment
  */
 
@@ -23,7 +23,7 @@ class Config extends \Magento\Payment\Gateway\Config\Config
         \Magento\Framework\Encryption\Encryptor $encryptor,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         $methodCode = null,
-        $pathPattern = \Magento\Payment\Gateway\Config\Config::DEFAULT_PATH_PATTERN
+        $pathPattern = \Magento\Payment\Gateway\Config\Config::DEFAULT_PATH_PATTERN,
     ) {
         parent::__construct($scopeConfig, $methodCode, $pathPattern);
         $this->encryptor = $encryptor;

@@ -2,7 +2,7 @@
 
 /**
  * @author Mygento Team
- * @copyright 2016-2020 Mygento (https://www.mygento.ru)
+ * @copyright 2016-2026 Mygento (https://www.mygento.com)
  * @package Mygento_Payment
  */
 
@@ -19,7 +19,7 @@ class Validator extends \Magento\Payment\Gateway\Validator\AbstractValidator
      */
     public function __construct(
         \Mygento\Payment\Helper\Data $helper,
-        \Magento\Payment\Gateway\Validator\ResultInterfaceFactory $resultFactory
+        \Magento\Payment\Gateway\Validator\ResultInterfaceFactory $resultFactory,
     ) {
         parent::__construct($resultFactory);
         $this->helper = $helper;

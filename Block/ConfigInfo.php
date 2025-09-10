@@ -2,7 +2,7 @@
 
 /**
  * @author Mygento Team
- * @copyright 2016-2020 Mygento (https://www.mygento.ru)
+ * @copyright 2016-2026 Mygento (https://www.mygento.com)
  * @package Mygento_Payment
  */
 
@@ -32,7 +32,7 @@ class ConfigInfo extends Info
         \Mygento\Payment\Helper\Data $helper,
         \Mygento\Base\Helper\Discount $taxHelper,
         \Magento\Framework\View\Element\Template\Context $context,
-        array $data = []
+        array $data = [],
     ) {
         parent::__construct($helper, $context, $data);
         $this->config = $config;

@@ -2,7 +2,7 @@
 
 /**
  * @author Mygento Team
- * @copyright 2016-2020 Mygento (https://www.mygento.ru)
+ * @copyright 2016-2026 Mygento (https://www.mygento.com)
  * @package Mygento_Payment
  */
 
@@ -45,7 +45,7 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Sales\Model\Order\Payment\Transaction\ManagerInterface $transactionManager,
         \Magento\Sales\Api\TransactionRepositoryInterface $transactionRepo,
         \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
-        \Magento\Framework\App\Helper\Context $context
+        \Magento\Framework\App\Helper\Context $context,
     ) {
         parent::__construct($context);
         $this->helper = $helper;
@@ -79,7 +79,7 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
                 $transactionId,
                 $payment->getId(),
                 $order->getId(),
-                $transData
+                $transData,
             );
         }
 
@@ -111,7 +111,7 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
                 $transactionId,
                 $payment->getId(),
                 $order->getId(),
-                $transData
+                $transData,
             );
         }
 
@@ -178,7 +178,7 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
             $this->checkIfTransactionExists(
                 $transactionId,
                 $order->getPayment()->getId(),
-                $order->getId()
+                $order->getId(),
             )
         ) {
             $this->helper->notice('transaction %1 already exists', $transactionId);
@@ -194,16 +194,16 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
             ->setIsTransactionClosed(true);
         $transaction = $payment->addTransaction(
             \Mygento\Base\Model\Payment\Transaction::TYPE_FISCAL,
-            $invoice ? $invoice : $order
+            $invoice ? $invoice : $order,
         );
         $transaction->setAdditionalInformation(
             \Magento\Sales\Model\Order\Payment\Transaction::RAW_DETAILS,
-            $transData
+            $transData,
         );
         $transaction->save();
         $order->addStatusHistoryComment(
             __('Got Fiscal Receipt for transaction %1', $parentTransactionId),
-            false
+            false,
         );
 
         $this->orderRepository->save($order);
@@ -227,7 +227,7 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
             $this->checkIfTransactionExists(
                 $transactionId,
                 $order->getPayment()->getId(),
-                $order->getId()
+                $order->getId(),
             )
         ) {
             $this->helper->notice('Transaction %1 already exists', $transactionId);
@@ -243,16 +243,16 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
             ->setIsTransactionClosed(true);
         $transaction = $payment->addTransaction(
             \Mygento\Base\Model\Payment\Transaction::TYPE_FISCAL_REFUND,
-            $memo ? $memo : $order
+            $memo ? $memo : $order,
         );
         $transaction->setAdditionalInformation(
             \Magento\Sales\Model\Order\Payment\Transaction::RAW_DETAILS,
-            $transData
+            $transData,
         );
         $transaction->save();
         $order->addStatusHistoryComment(
             __('Got Fiscal Refund Receipt for transaction %1', $parentTransactionId),
-            false
+            false,
         );
 
         $this->orderRepository->save($order);
@@ -273,7 +273,7 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
         $transaction = $this->transactionRepo->getByTransactionId(
             $transactionId,
             $paymentId,
-            $orderId
+            $orderId,
         );
 
         if (!$transaction) {
@@ -284,7 +284,7 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
         $this->helper->debug('found transaction with id: ' . $transaction->getId());
         $transaction->setAdditionalInformation(
             \Magento\Sales\Model\Order\Payment\Transaction::RAW_DETAILS,
-            $transData
+            $transData,
         );
         $transaction->save();
     }
@@ -342,7 +342,7 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
         return $this->transactionManager->isTransactionExists(
             $transactionId,
             $paymentId,
-            $orderId
+            $orderId,
         );
     }
 
@@ -364,7 +364,7 @@ class Transaction extends \Magento\Framework\App\Helper\AbstractHelper
 
                 return json_encode($item);
             },
-            $transData
+            $transData,
         );
     }
 }
