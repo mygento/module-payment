@@ -8,14 +8,18 @@
 
 namespace Mygento\Payment\Model\ResourceModel;
 
-class Keys extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
+use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
+
+class Keys extends AbstractDb
 {
+    public const TABLE_NAME = 'mygento_payment_keys';
+    public const TABLE_PRIMARY_KEY = 'id';
+
     /**
      * Initialize resource model
-     * @return void
      */
     protected function _construct()
     {
-        $this->_init('mygento_payment_keys', 'id');
+        $this->_init(self::TABLE_NAME, self::TABLE_PRIMARY_KEY);
     }
 }

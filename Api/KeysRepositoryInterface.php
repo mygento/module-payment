@@ -8,46 +8,38 @@
 
 namespace Mygento\Payment\Api;
 
+use Magento\Framework\Api\SearchCriteriaInterface;
+
 interface KeysRepositoryInterface
 {
     /**
      * Save Keys
-     * @param \Mygento\Payment\Api\Data\KeysInterface $entity
      * @throws \Magento\Framework\Exception\LocalizedException
-     * @return \Mygento\Payment\Api\Data\KeysInterface
      */
-    public function save(Data\KeysInterface $entity);
+    public function save(Data\KeysInterface $entity): Data\KeysInterface;
 
     /**
      * Retrieve Keys
-     * @param int $entityId
      * @throws \Magento\Framework\Exception\LocalizedException
-     * @return \Mygento\Payment\Api\Data\KeysInterface
      */
-    public function getById($entityId);
+    public function getById(int $entityId): Data\KeysInterface;
 
     /**
      * Retrieve Keys entities matching the specified criteria
-     * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
      * @throws \Magento\Framework\Exception\LocalizedException
-     * @return \Mygento\Payment\Api\Data\KeysSearchResultsInterface
      */
-    public function getList(\Magento\Framework\Api\SearchCriteriaInterface $searchCriteria);
+    public function getList(SearchCriteriaInterface $searchCriteria): Data\KeysSearchResultsInterface;
 
     /**
      * Delete Keys
-     * @param \Mygento\Payment\Api\Data\KeysInterface $entity
      * @throws \Magento\Framework\Exception\LocalizedException
-     * @return bool true on success
      */
-    public function delete(Data\KeysInterface $entity);
+    public function delete(Data\KeysInterface $entity): bool;
 
     /**
      * Delete Keys
-     * @param int $entityId
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      * @throws \Magento\Framework\Exception\LocalizedException
-     * @return bool true on success
      */
-    public function deleteById($entityId);
+    public function deleteById(int $entityId): bool;
 }

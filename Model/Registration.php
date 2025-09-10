@@ -9,14 +9,17 @@
 namespace Mygento\Payment\Model;
 
 use Magento\Framework\Model\AbstractModel;
+use Mygento\Payment\Api\Data\RegistrationInterface;
 
-class Registration extends AbstractModel implements \Mygento\Payment\Api\Data\RegistrationInterface
+class Registration extends AbstractModel implements RegistrationInterface
 {
+    /** @inheritDoc */
+    protected $_eventPrefix = 'mygento_payment_registration';
+
     /**
      * Get id
-     * @return int|null
      */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->getData(self::ID);
     }
@@ -24,142 +27,120 @@ class Registration extends AbstractModel implements \Mygento\Payment\Api\Data\Re
     /**
      * Set id
      * @param int $id
-     * @return $this
      */
-    public function setId($id)
+    public function setId($id): self
     {
         return $this->setData(self::ID, $id);
     }
 
     /**
      * Get code
-     * @return string|null
      */
-    public function getCode()
+    public function getCode(): string
     {
         return $this->getData(self::CODE);
     }
 
     /**
      * Set code
-     * @param string $code
-     * @return $this
      */
-    public function setCode($code)
+    public function setCode(string $code): self
     {
         return $this->setData(self::CODE, $code);
     }
 
     /**
      * Get order id
-     * @return int|null
      */
-    public function getOrderId()
+    public function getOrderId(): int
     {
         return $this->getData(self::ORDER_ID);
     }
 
     /**
      * Set order id
-     * @param int $orderId
-     * @return $this
      */
-    public function setOrderId($orderId)
+    public function setOrderId(int $orderId): self
     {
         return $this->setData(self::ORDER_ID, $orderId);
     }
 
     /**
      * Get payment id
-     * @return string|null
      */
-    public function getPaymentId()
+    public function getPaymentId(): string
     {
         return $this->getData(self::PAYMENT_ID);
     }
 
     /**
      * Set payment id
-     * @param string $paymentId
-     * @return $this
      */
-    public function setPaymentId($paymentId)
+    public function setPaymentId(string $paymentId): self
     {
         return $this->setData(self::PAYMENT_ID, $paymentId);
     }
 
     /**
      * Get payment url
-     * @return string|null
      */
-    public function getPaymentUrl()
+    public function getPaymentUrl(): string
     {
         return $this->getData(self::PAYMENT_URL);
     }
 
     /**
      * Set payment url
-     * @param string $paymentUrl
-     * @return $this
      */
-    public function setPaymentUrl($paymentUrl)
+    public function setPaymentUrl(string $paymentUrl): self
     {
         return $this->setData(self::PAYMENT_URL, $paymentUrl);
     }
 
     /**
      * Get try
-     * @return int|null
      */
-    public function getTry()
+    public function getTry(): int
     {
         return $this->getData(self::TRY);
     }
 
     /**
      * Set try
-     * @param int $try
-     * @return $this
      */
-    public function setTry($try)
+    public function setTry(int $try): self
     {
         return $this->setData(self::TRY, $try);
     }
 
     /**
      * Get payment type
-     * @return string|null
      */
-    public function getPaymentType()
+    public function getPaymentType(): string
     {
         return $this->getData(self::PAYMENT_TYPE);
     }
 
     /**
      * Set payment type
-     * @param string $paymentType
-     * @return $this
      */
-    public function setPaymentType($paymentType)
+    public function setPaymentType(string $paymentType): self
     {
         return $this->setData(self::PAYMENT_TYPE, $paymentType);
     }
 
     /**
      * Get created at
-     * @return string|null
      */
-    public function getCreatedAt()
+    public function getCreatedAt(): string
     {
         return $this->getData(self::CREATED_AT);
     }
 
     /**
      * Set created at
-     * @param string $createdAt
-     * @return $this
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(string $createdAt): self
     {
         return $this->setData(self::CREATED_AT, $createdAt);
     }
@@ -169,6 +150,6 @@ class Registration extends AbstractModel implements \Mygento\Payment\Api\Data\Re
      */
     protected function _construct()
     {
-        $this->_init(\Mygento\Payment\Model\ResourceModel\Registration::class);
+        $this->_init(ResourceModel\Registration::class);
     }
 }

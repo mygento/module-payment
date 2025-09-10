@@ -8,56 +8,41 @@
 
 namespace Mygento\Payment\Model;
 
-use Magento\Framework\Api\SortOrder;
-use Magento\Framework\Data\Collection;
+use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
+use Magento\Framework\Api\SearchCriteriaInterface;
+use Magento\Framework\Exception\CouldNotDeleteException;
+use Magento\Framework\Exception\CouldNotSaveException;
+use Magento\Framework\Exception\NoSuchEntityException;
+use Mygento\Payment\Api\Data\KeysInterface;
+use Mygento\Payment\Api\Data\KeysInterfaceFactory;
+use Mygento\Payment\Api\Data\KeysSearchResultsInterface;
+use Mygento\Payment\Api\Data\KeysSearchResultsInterfaceFactory;
+use Mygento\Payment\Api\KeysRepositoryInterface;
+use Mygento\Payment\Model\ResourceModel\Keys\CollectionFactory;
 
 /**
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
-class KeysRepository implements \Mygento\Payment\Api\KeysRepositoryInterface
+class KeysRepository implements KeysRepositoryInterface
 {
-    /** @var \Mygento\Payment\Model\ResourceModel\Keys */
-    private $resource;
-
-    /** @var \Mygento\Payment\Model\ResourceModel\Keys\CollectionFactory */
-    private $collectionFactory;
-
-    /** @var \Mygento\Payment\Api\Data\KeysInterfaceFactory */
-    private $entityFactory;
-
-    /** @var \Mygento\Payment\Api\Data\KeysSearchResultsInterfaceFactory */
-    private $searchResultsFactory;
-
-    /**
-     * @param \Mygento\Payment\Model\ResourceModel\Keys $resource
-     * @param \Mygento\Payment\Model\ResourceModel\Keys\CollectionFactory $collectionFactory
-     * @param \Mygento\Payment\Api\Data\KeysInterfaceFactory $entityFactory
-     * @param \Mygento\Payment\Api\Data\KeysSearchResultsInterfaceFactory $searchResultsFactory
-     */
     public function __construct(
-        ResourceModel\Keys $resource,
-        ResourceModel\Keys\CollectionFactory $collectionFactory,
-        \Mygento\Payment\Api\Data\KeysInterfaceFactory $entityFactory,
-        \Mygento\Payment\Api\Data\KeysSearchResultsInterfaceFactory $searchResultsFactory,
-    ) {
-        $this->resource = $resource;
-        $this->collectionFactory = $collectionFactory;
-        $this->entityFactory = $entityFactory;
-        $this->searchResultsFactory = $searchResultsFactory;
-    }
+        private ResourceModel\Keys $resource,
+        private CollectionFactory $collectionFactory,
+        private KeysInterfaceFactory $entityFactory,
+        private KeysSearchResultsInterfaceFactory $searchResultsFactory,
+        private CollectionProcessorInterface $collectionProcessor,
+    ) {}
 
     /**
-     * @param int $entityId
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
-     * @return \Mygento\Payment\Api\Data\KeysInterface
+     * @throws NoSuchEntityException
      */
-    public function getById($entityId)
+    public function getById(int $entityId): KeysInterface
     {
         $entity = $this->entityFactory->create();
         $this->resource->load($entity, $entityId);
         if (!$entity->getId()) {
-            throw new \Magento\Framework\Exception\NoSuchEntityException(
-                __('Payment Keys with id "%1" does not exist.', $entityId),
+            throw new NoSuchEntityException(
+                __('A Payment Keys with id "%1" does not exist', $entityId),
             );
         }
 
@@ -65,17 +50,16 @@ class KeysRepository implements \Mygento\Payment\Api\KeysRepositoryInterface
     }
 
     /**
-     * @param \Mygento\Payment\Api\Data\KeysInterface $entity
-     * @throws \Magento\Framework\Exception\CouldNotSaveException
-     * @return \Mygento\Payment\Api\Data\KeysInterface
+     * @throws CouldNotSaveException
      */
-    public function save(\Mygento\Payment\Api\Data\KeysInterface $entity)
+    public function save(KeysInterface $entity): KeysInterface
     {
         try {
             $this->resource->save($entity);
         } catch (\Exception $exception) {
-            throw new \Magento\Framework\Exception\CouldNotSaveException(
-                __($exception->getMessage()),
+            throw new CouldNotSaveException(
+                __('Could not save the Payment Keys'),
+                $exception,
             );
         }
 
@@ -83,16 +67,14 @@ class KeysRepository implements \Mygento\Payment\Api\KeysRepositoryInterface
     }
 
     /**
-     * @param \Mygento\Payment\Api\Data\KeysInterface $entity
-     * @throws \Magento\Framework\Exception\CouldNotDeleteException
-     * @return bool
+     * @throws CouldNotDeleteException
      */
-    public function delete(\Mygento\Payment\Api\Data\KeysInterface $entity)
+    public function delete(KeysInterface $entity): bool
     {
         try {
             $this->resource->delete($entity);
         } catch (\Exception $exception) {
-            throw new \Magento\Framework\Exception\CouldNotDeleteException(
+            throw new CouldNotDeleteException(
                 __($exception->getMessage()),
             );
         }
@@ -101,53 +83,22 @@ class KeysRepository implements \Mygento\Payment\Api\KeysRepositoryInterface
     }
 
     /**
-     * @param int $entityId
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
-     * @throws \Magento\Framework\Exception\CouldNotDeleteException
-     * @return bool
+     * @throws NoSuchEntityException
+     * @throws CouldNotDeleteException
      */
-    public function deleteById($entityId)
+    public function deleteById(int $entityId): bool
     {
         return $this->delete($this->getById($entityId));
     }
 
-    /**
-     * @param \Magento\Framework\Api\SearchCriteriaInterface $criteria
-     * @return \Mygento\Payment\Api\Data\KeysSearchResultsInterface
-     */
-    public function getList(\Magento\Framework\Api\SearchCriteriaInterface $criteria)
+    public function getList(SearchCriteriaInterface $criteria): KeysSearchResultsInterface
     {
         /** @var \Mygento\Payment\Model\ResourceModel\Keys\Collection $collection */
         $collection = $this->collectionFactory->create();
-        foreach ($criteria->getFilterGroups() as $filterGroup) {
-            $fields = [];
-            $conditions = [];
-            foreach ($filterGroup->getFilters() as $filter) {
-                $condition = $filter->getConditionType() ? $filter->getConditionType() : 'eq';
-                $fields[] = $filter->getField();
-                $conditions[] = [$condition => $filter->getValue()];
-            }
-            if ($fields) {
-                $collection->addFieldToFilter($fields, $conditions);
-            }
-        }
-        $sortOrders = $criteria->getSortOrders();
-        $sortAsc = SortOrder::SORT_ASC;
-        $orderAsc = Collection::SORT_ORDER_ASC;
-        $orderDesc = Collection::SORT_ORDER_DESC;
-        if ($sortOrders) {
-            /** @var SortOrder $sortOrder */
-            foreach ($sortOrders as $sortOrder) {
-                $collection->addOrder(
-                    $sortOrder->getField(),
-                    ($sortOrder->getDirection() == $sortAsc) ? $orderAsc : $orderDesc,
-                );
-            }
-        }
-        $collection->setCurPage($criteria->getCurrentPage());
-        $collection->setPageSize($criteria->getPageSize());
 
-        /** @var \Mygento\Payment\Api\Data\KeysSearchResultsInterface $searchResults */
+        $this->collectionProcessor->process($criteria, $collection);
+
+        /** @var KeysSearchResultsInterface $searchResults */
         $searchResults = $this->searchResultsFactory->create();
         $searchResults->setSearchCriteria($criteria);
         $searchResults->setItems($collection->getItems());

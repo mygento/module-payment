@@ -8,10 +8,14 @@
 
 namespace Mygento\Payment\Model\ResourceModel\Registration;
 
-class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
+use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
+use Mygento\Payment\Model\Registration;
+use Mygento\Payment\Model\ResourceModel\Registration as RegistrationResource;
+
+class Collection extends AbstractCollection
 {
     /** @var string */
-    protected $_idFieldName = 'id';
+    protected $_idFieldName = RegistrationResource::TABLE_PRIMARY_KEY;
 
     /**
      * Define resource model
@@ -19,8 +23,8 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
     protected function _construct()
     {
         $this->_init(
-            \Mygento\Payment\Model\Registration::class,
-            \Mygento\Payment\Model\ResourceModel\Registration::class,
+            Registration::class,
+            RegistrationResource::class,
         );
     }
 }

@@ -1,11 +1,17 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Mygento\Payment\Model\KeyManager">
+        <arguments>
+            <argument name="urlBuilder" xsi:type="object">Magento\Framework\Url</argument>
+        </arguments>
+    </type>
+    <!-- generated -->
     <preference for="Mygento\Payment\Api\KeysRepositoryInterface" type="Mygento\Payment\Model\KeysRepository"/>
     <preference for="Mygento\Payment\Api\RegistrationRepositoryInterface" type="Mygento\Payment\Model\RegistrationRepository"/>
     <preference for="Mygento\Payment\Api\Data\KeysInterface" type="Mygento\Payment\Model\Keys"/>
     <preference for="Mygento\Payment\Api\Data\RegistrationInterface" type="Mygento\Payment\Model\Registration"/>
-    <preference for="Mygento\Payment\Api\Data\KeysSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
-    <preference for="Mygento\Payment\Api\Data\RegistrationSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+    <preference for="Mygento\Payment\Api\Data\KeysSearchResultsInterface" type="Mygento\Payment\Model\KeysSearchResults"/>
+    <preference for="Mygento\Payment\Api\Data\RegistrationSearchResultsInterface" type="Mygento\Payment\Model\RegistrationSearchResults"/>
     <type name="Magento\Framework\Model\Entity\RepositoryFactory">
         <arguments>
             <argument name="entities" xsi:type="array">
@@ -14,11 +20,32 @@
             </argument>
         </arguments>
     </type>
-
-    <type name="Mygento\Payment\Model\KeyManager">
+    <virtualType name="Mygento\Payment\Model\SearchCriteria\KeysCollectionProcessor" type="Magento\Framework\Api\SearchCriteria\CollectionProcessor">
         <arguments>
-            <argument name="urlBuilder" xsi:type="object">Magento\Framework\Url</argument>
+            <argument name="processors" xsi:type="array">
+                <item name="filters" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessor\FilterProcessor</item>
+                <item name="sorting" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessor\SortingProcessor</item>
+                <item name="pagination" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessor\PaginationProcessor</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Mygento\Payment\Model\SearchCriteria\RegistrationCollectionProcessor" type="Magento\Framework\Api\SearchCriteria\CollectionProcessor">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="filters" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessor\FilterProcessor</item>
+                <item name="sorting" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessor\SortingProcessor</item>
+                <item name="pagination" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessor\PaginationProcessor</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Mygento\Payment\Model\KeysRepository">
+        <arguments>
+            <argument name="collectionProcessor" xsi:type="object">Mygento\Payment\Model\SearchCriteria\KeysCollectionProcessor</argument>
         </arguments>
     </type>
-
+    <type name="Mygento\Payment\Model\RegistrationRepository">
+        <arguments>
+            <argument name="collectionProcessor" xsi:type="object">Mygento\Payment\Model\SearchCriteria\RegistrationCollectionProcessor</argument>
+        </arguments>
+    </type>
 </config>

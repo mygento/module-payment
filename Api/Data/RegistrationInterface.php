@@ -21,105 +21,82 @@ interface RegistrationInterface
 
     /**
      * Get id
-     * @return int|null
      */
-    public function getId();
+    public function getId(): ?int;
 
     /**
      * Set id
      * @param int $id
-     * @return $this
      */
-    public function setId($id);
+    public function setId($id): self;
 
     /**
      * Get code
-     * @return string|null
      */
-    public function getCode();
+    public function getCode(): string;
 
     /**
      * Set code
-     * @param string $code
-     * @return $this
      */
-    public function setCode($code);
+    public function setCode(string $code): self;
 
     /**
      * Get order id
-     * @return int|null
      */
-    public function getOrderId();
+    public function getOrderId(): int;
 
     /**
      * Set order id
-     * @param int $orderId
-     * @return $this
      */
-    public function setOrderId($orderId);
+    public function setOrderId(int $orderId): self;
 
     /**
      * Get payment id
-     * @return string|null
      */
-    public function getPaymentId();
+    public function getPaymentId(): string;
 
     /**
      * Set payment id
-     * @param string $paymentId
-     * @return $this
      */
-    public function setPaymentId($paymentId);
+    public function setPaymentId(string $paymentId): self;
 
     /**
      * Get payment url
-     * @return string|null
      */
-    public function getPaymentUrl();
+    public function getPaymentUrl(): string;
 
     /**
      * Set payment url
-     * @param string $paymentUrl
-     * @return $this
      */
-    public function setPaymentUrl($paymentUrl);
+    public function setPaymentUrl(string $paymentUrl): self;
 
     /**
      * Get try
-     * @return int|null
      */
-    public function getTry();
+    public function getTry(): int;
 
     /**
      * Set try
-     * @param int $try
-     * @return $this
      */
-    public function setTry($try);
+    public function setTry(int $try): self;
 
     /**
      * Get payment type
-     * @return string|null
      */
-    public function getPaymentType();
+    public function getPaymentType(): string;
 
     /**
      * Set payment type
-     * @param string $paymentType
-     * @return $this
      */
-    public function setPaymentType($paymentType);
+    public function setPaymentType(string $paymentType): self;
 
     /**
      * Get created at
-     * @return string|null
      */
-    public function getCreatedAt();
+    public function getCreatedAt(): string;
 
     /**
      * Set created at
-     * @param string $createdAt
-     * @return $this
      */
-    public function setCreatedAt($createdAt);
+    public function setCreatedAt(string $createdAt): self;
 }

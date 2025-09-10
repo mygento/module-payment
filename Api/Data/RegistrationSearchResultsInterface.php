@@ -8,7 +8,9 @@
 
 namespace Mygento\Payment\Api\Data;
 
-interface RegistrationSearchResultsInterface extends \Magento\Framework\Api\SearchResultsInterface
+use Magento\Framework\Api\SearchResultsInterface;
+
+interface RegistrationSearchResultsInterface extends SearchResultsInterface
 {
     /**
      * Get list of Registration

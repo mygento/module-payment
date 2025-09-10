@@ -8,46 +8,38 @@
 
 namespace Mygento\Payment\Api;
 
+use Magento\Framework\Api\SearchCriteriaInterface;
+
 interface RegistrationRepositoryInterface
 {
     /**
      * Save Registration
-     * @param \Mygento\Payment\Api\Data\RegistrationInterface $entity
      * @throws \Magento\Framework\Exception\LocalizedException
-     * @return \Mygento\Payment\Api\Data\RegistrationInterface
      */
-    public function save(Data\RegistrationInterface $entity);
+    public function save(Data\RegistrationInterface $entity): Data\RegistrationInterface;
 
     /**
      * Retrieve Registration
-     * @param int $entityId
      * @throws \Magento\Framework\Exception\LocalizedException
-     * @return \Mygento\Payment\Api\Data\RegistrationInterface
      */
-    public function getById($entityId);
+    public function getById(int $entityId): Data\RegistrationInterface;
 
     /**
      * Retrieve Registration entities matching the specified criteria
-     * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
      * @throws \Magento\Framework\Exception\LocalizedException
-     * @return \Mygento\Payment\Api\Data\RegistrationSearchResultsInterface
      */
-    public function getList(\Magento\Framework\Api\SearchCriteriaInterface $searchCriteria);
+    public function getList(SearchCriteriaInterface $searchCriteria): Data\RegistrationSearchResultsInterface;
 
     /**
      * Delete Registration
-     * @param \Mygento\Payment\Api\Data\RegistrationInterface $entity
      * @throws \Magento\Framework\Exception\LocalizedException
-     * @return bool true on success
      */
-    public function delete(Data\RegistrationInterface $entity);
+    public function delete(Data\RegistrationInterface $entity): bool;
 
     /**
      * Delete Registration
-     * @param int $entityId
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      * @throws \Magento\Framework\Exception\LocalizedException
-     * @return bool true on success
      */
-    public function deleteById($entityId);
+    public function deleteById(int $entityId): bool;
 }

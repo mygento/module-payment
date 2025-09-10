@@ -17,53 +17,42 @@ interface KeysInterface
 
     /**
      * Get id
-     * @return int|null
      */
-    public function getId();
+    public function getId(): ?int;
 
     /**
      * Set id
      * @param int $id
-     * @return $this
      */
-    public function setId($id);
+    public function setId($id): self;
 
     /**
      * Get code
-     * @return string|null
      */
-    public function getCode();
+    public function getCode(): string;
 
     /**
      * Set code
-     * @param string $code
-     * @return $this
      */
-    public function setCode($code);
+    public function setCode(string $code): self;
 
     /**
      * Get order id
-     * @return int|null
      */
-    public function getOrderId();
+    public function getOrderId(): int;
 
     /**
      * Set order id
-     * @param int $orderId
-     * @return $this
      */
-    public function setOrderId($orderId);
+    public function setOrderId(int $orderId): self;
 
     /**
      * Get hkey
-     * @return string|null
      */
-    public function getHkey();
+    public function getHkey(): string;
 
     /**
      * Set hkey
-     * @param string $hkey
-     * @return $this
      */
-    public function setHkey($hkey);
+    public function setHkey(string $hkey): self;
 }

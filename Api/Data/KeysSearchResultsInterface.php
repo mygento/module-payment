@@ -8,7 +8,9 @@
 
 namespace Mygento\Payment\Api\Data;
 
-interface KeysSearchResultsInterface extends \Magento\Framework\Api\SearchResultsInterface
+use Magento\Framework\Api\SearchResultsInterface;
+
+interface KeysSearchResultsInterface extends SearchResultsInterface
 {
     /**
      * Get list of Keys

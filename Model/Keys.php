@@ -9,14 +9,17 @@
 namespace Mygento\Payment\Model;
 
 use Magento\Framework\Model\AbstractModel;
+use Mygento\Payment\Api\Data\KeysInterface;
 
-class Keys extends AbstractModel implements \Mygento\Payment\Api\Data\KeysInterface
+class Keys extends AbstractModel implements KeysInterface
 {
+    /** @inheritDoc */
+    protected $_eventPrefix = 'mygento_payment_keys';
+
     /**
      * Get id
-     * @return int|null
      */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->getData(self::ID);
     }
@@ -24,66 +27,56 @@ class Keys extends AbstractModel implements \Mygento\Payment\Api\Data\KeysInterf
     /**
      * Set id
      * @param int $id
-     * @return $this
      */
-    public function setId($id)
+    public function setId($id): self
     {
         return $this->setData(self::ID, $id);
     }
 
     /**
      * Get code
-     * @return string|null
      */
-    public function getCode()
+    public function getCode(): string
     {
         return $this->getData(self::CODE);
     }
 
     /**
      * Set code
-     * @param string $code
-     * @return $this
      */
-    public function setCode($code)
+    public function setCode(string $code): self
     {
         return $this->setData(self::CODE, $code);
     }
 
     /**
      * Get order id
-     * @return int|null
      */
-    public function getOrderId()
+    public function getOrderId(): int
     {
         return $this->getData(self::ORDER_ID);
     }
 
     /**
      * Set order id
-     * @param int $orderId
-     * @return $this
      */
-    public function setOrderId($orderId)
+    public function setOrderId(int $orderId): self
     {
         return $this->setData(self::ORDER_ID, $orderId);
     }
 
     /**
      * Get hkey
-     * @return string|null
      */
-    public function getHkey()
+    public function getHkey(): string
     {
         return $this->getData(self::HKEY);
     }
 
     /**
      * Set hkey
-     * @param string $hkey
-     * @return $this
      */
-    public function setHkey($hkey)
+    public function setHkey(string $hkey): self
     {
         return $this->setData(self::HKEY, $hkey);
     }
@@ -93,6 +86,6 @@ class Keys extends AbstractModel implements \Mygento\Payment\Api\Data\KeysInterf
      */
     protected function _construct()
     {
-        $this->_init(\Mygento\Payment\Model\ResourceModel\Keys::class);
+        $this->_init(ResourceModel\Keys::class);
     }
 }

@@ -8,56 +8,41 @@
 
 namespace Mygento\Payment\Model;
 
-use Magento\Framework\Api\SortOrder;
-use Magento\Framework\Data\Collection;
+use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
+use Magento\Framework\Api\SearchCriteriaInterface;
+use Magento\Framework\Exception\CouldNotDeleteException;
+use Magento\Framework\Exception\CouldNotSaveException;
+use Magento\Framework\Exception\NoSuchEntityException;
+use Mygento\Payment\Api\Data\RegistrationInterface;
+use Mygento\Payment\Api\Data\RegistrationInterfaceFactory;
+use Mygento\Payment\Api\Data\RegistrationSearchResultsInterface;
+use Mygento\Payment\Api\Data\RegistrationSearchResultsInterfaceFactory;
+use Mygento\Payment\Api\RegistrationRepositoryInterface;
+use Mygento\Payment\Model\ResourceModel\Registration\CollectionFactory;
 
 /**
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
-class RegistrationRepository implements \Mygento\Payment\Api\RegistrationRepositoryInterface
+class RegistrationRepository implements RegistrationRepositoryInterface
 {
-    /** @var \Mygento\Payment\Model\ResourceModel\Registration */
-    private $resource;
-
-    /** @var \Mygento\Payment\Model\ResourceModel\Registration\CollectionFactory */
-    private $collectionFactory;
-
-    /** @var \Mygento\Payment\Api\Data\RegistrationInterfaceFactory */
-    private $entityFactory;
-
-    /** @var \Mygento\Payment\Api\Data\RegistrationSearchResultsInterfaceFactory */
-    private $searchResultsFactory;
-
-    /**
-     * @param \Mygento\Payment\Model\ResourceModel\Registration $resource
-     * @param \Mygento\Payment\Model\ResourceModel\Registration\CollectionFactory $collectionFactory
-     * @param \Mygento\Payment\Api\Data\RegistrationInterfaceFactory $entityFactory
-     * @param \Mygento\Payment\Api\Data\RegistrationSearchResultsInterfaceFactory $searchResultsFactory
-     */
     public function __construct(
-        ResourceModel\Registration $resource,
-        ResourceModel\Registration\CollectionFactory $collectionFactory,
-        \Mygento\Payment\Api\Data\RegistrationInterfaceFactory $entityFactory,
-        \Mygento\Payment\Api\Data\RegistrationSearchResultsInterfaceFactory $searchResultsFactory,
-    ) {
-        $this->resource = $resource;
-        $this->collectionFactory = $collectionFactory;
-        $this->entityFactory = $entityFactory;
-        $this->searchResultsFactory = $searchResultsFactory;
-    }
+        private ResourceModel\Registration $resource,
+        private CollectionFactory $collectionFactory,
+        private RegistrationInterfaceFactory $entityFactory,
+        private RegistrationSearchResultsInterfaceFactory $searchResultsFactory,
+        private CollectionProcessorInterface $collectionProcessor,
+    ) {}
 
     /**
-     * @param int $entityId
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
-     * @return \Mygento\Payment\Api\Data\RegistrationInterface
+     * @throws NoSuchEntityException
      */
-    public function getById($entityId)
+    public function getById(int $entityId): RegistrationInterface
     {
         $entity = $this->entityFactory->create();
         $this->resource->load($entity, $entityId);
         if (!$entity->getId()) {
-            throw new \Magento\Framework\Exception\NoSuchEntityException(
-                __('Payment Registration with id "%1" does not exist.', $entityId),
+            throw new NoSuchEntityException(
+                __('A Payment Registration with id "%1" does not exist', $entityId),
             );
         }
 
@@ -65,17 +50,16 @@ class RegistrationRepository implements \Mygento\Payment\Api\RegistrationReposit
     }
 
     /**
-     * @param \Mygento\Payment\Api\Data\RegistrationInterface $entity
-     * @throws \Magento\Framework\Exception\CouldNotSaveException
-     * @return \Mygento\Payment\Api\Data\RegistrationInterface
+     * @throws CouldNotSaveException
      */
-    public function save(\Mygento\Payment\Api\Data\RegistrationInterface $entity)
+    public function save(RegistrationInterface $entity): RegistrationInterface
     {
         try {
             $this->resource->save($entity);
         } catch (\Exception $exception) {
-            throw new \Magento\Framework\Exception\CouldNotSaveException(
-                __($exception->getMessage()),
+            throw new CouldNotSaveException(
+                __('Could not save the Payment Registration'),
+                $exception,
             );
         }
 
@@ -83,16 +67,14 @@ class RegistrationRepository implements \Mygento\Payment\Api\RegistrationReposit
     }
 
     /**
-     * @param \Mygento\Payment\Api\Data\RegistrationInterface $entity
-     * @throws \Magento\Framework\Exception\CouldNotDeleteException
-     * @return bool
+     * @throws CouldNotDeleteException
      */
-    public function delete(\Mygento\Payment\Api\Data\RegistrationInterface $entity)
+    public function delete(RegistrationInterface $entity): bool
     {
         try {
             $this->resource->delete($entity);
         } catch (\Exception $exception) {
-            throw new \Magento\Framework\Exception\CouldNotDeleteException(
+            throw new CouldNotDeleteException(
                 __($exception->getMessage()),
             );
         }
@@ -101,53 +83,22 @@ class RegistrationRepository implements \Mygento\Payment\Api\RegistrationReposit
     }
 
     /**
-     * @param int $entityId
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
-     * @throws \Magento\Framework\Exception\CouldNotDeleteException
-     * @return bool
+     * @throws NoSuchEntityException
+     * @throws CouldNotDeleteException
      */
-    public function deleteById($entityId)
+    public function deleteById(int $entityId): bool
     {
         return $this->delete($this->getById($entityId));
     }
 
-    /**
-     * @param \Magento\Framework\Api\SearchCriteriaInterface $criteria
-     * @return \Mygento\Payment\Api\Data\RegistrationSearchResultsInterface
-     */
-    public function getList(\Magento\Framework\Api\SearchCriteriaInterface $criteria)
+    public function getList(SearchCriteriaInterface $criteria): RegistrationSearchResultsInterface
     {
         /** @var \Mygento\Payment\Model\ResourceModel\Registration\Collection $collection */
         $collection = $this->collectionFactory->create();
-        foreach ($criteria->getFilterGroups() as $filterGroup) {
-            $fields = [];
-            $conditions = [];
-            foreach ($filterGroup->getFilters() as $filter) {
-                $condition = $filter->getConditionType() ? $filter->getConditionType() : 'eq';
-                $fields[] = $filter->getField();
-                $conditions[] = [$condition => $filter->getValue()];
-            }
-            if ($fields) {
-                $collection->addFieldToFilter($fields, $conditions);
-            }
-        }
-        $sortOrders = $criteria->getSortOrders();
-        $sortAsc = SortOrder::SORT_ASC;
-        $orderAsc = Collection::SORT_ORDER_ASC;
-        $orderDesc = Collection::SORT_ORDER_DESC;
-        if ($sortOrders) {
-            /** @var SortOrder $sortOrder */
-            foreach ($sortOrders as $sortOrder) {
-                $collection->addOrder(
-                    $sortOrder->getField(),
-                    ($sortOrder->getDirection() == $sortAsc) ? $orderAsc : $orderDesc,
-                );
-            }
-        }
-        $collection->setCurPage($criteria->getCurrentPage());
-        $collection->setPageSize($criteria->getPageSize());
 
-        /** @var \Mygento\Payment\Api\Data\RegistrationSearchResultsInterface $searchResults */
+        $this->collectionProcessor->process($criteria, $collection);
+
+        /** @var RegistrationSearchResultsInterface $searchResults */
         $searchResults = $this->searchResultsFactory->create();
         $searchResults->setSearchCriteria($criteria);
         $searchResults->setItems($collection->getItems());
