@@ -61,6 +61,7 @@ Mygento:
           payment_url:
             type: varchar
             nullable: false
+            length: 255
             comment: 'Payment Url'
           try:
             type: int

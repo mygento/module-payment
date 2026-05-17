@@ -21,7 +21,7 @@
         <column xsi:type="varchar" name="code" nullable="false" length="255" comment="Module CodeName"/>
         <column xsi:type="int" name="order_id" nullable="false" identity="false" unsigned="true" comment="Order ID"/>
         <column xsi:type="varchar" name="payment_id" nullable="false" length="255" comment="Payment ID"/>
-        <column xsi:type="varchar" name="payment_url" nullable="false" length="255" comment="Payment Url"/>
+        <column xsi:type="varchar" name="payment_url" nullable="false" length="512" comment="Payment Url"/>
         <column xsi:type="int" name="try" nullable="false" identity="false" unsigned="true" default="0" comment="Try"/>
         <column xsi:type="varchar" name="payment_type" nullable="false" length="255" comment="Payment Type"/>
         <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="false" comment="Created At"/>
